@@ -1,1111 +1,1756 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ripal Darji — Software Architect</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --ink: #111111;
-      --ink-2: #444444;
-      --ink-3: #888888;
-      --paper: #fafaf8;
-      --paper-2: #f3f2ee;
-      --paper-3: #e8e6df;
-      --accent: #1a6b4a;
-      --accent-light: #e8f5ee;
-      --accent-2: #c8873a;
-      --rule: #dddbd3;
-      --serif: 'DM Serif Display', Georgia, serif;
-      --sans: 'DM Sans', sans-serif;
-      --mono: 'DM Mono', monospace;
-      --max: 1100px;
-      --gutter: clamp(1.5rem, 5vw, 4rem);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--sans);
-      background: var(--paper);
-      color: var(--ink);
-      font-size: 16px;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(250,250,248,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--rule);
-      padding: 0 var(--gutter);
-      height: 60px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-logo {
-      font-family: var(--serif);
-      font-size: 1.15rem;
-      color: var(--ink);
-      text-decoration: none;
-      letter-spacing: -0.01em;
-    }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      font-size: 0.82rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--ink-2);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--accent); }
-    .nav-cta {
-      font-size: 0.8rem;
-      font-weight: 500;
-      background: var(--ink);
-      color: var(--paper);
-      padding: 0.45rem 1.1rem;
-      border-radius: 2px;
-      text-decoration: none;
-      letter-spacing: 0.04em;
-      transition: background 0.2s;
-    }
-    .nav-cta:hover { background: var(--accent); }
-
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 100px var(--gutter) 60px;
-      max-width: var(--max);
-      margin: 0 auto;
-      position: relative;
-    }
-    .hero-tag {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--accent);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      display: flex; align-items: center; gap: 0.6rem;
-    }
-    .hero-tag::before {
-      content: '';
-      display: inline-block;
-      width: 24px; height: 1px;
-      background: var(--accent);
-    }
-    .hero-name {
-      font-family: var(--serif);
-      font-size: clamp(3.5rem, 8vw, 7rem);
-      line-height: 1.0;
-      letter-spacing: -0.03em;
-      color: var(--ink);
-      margin-bottom: 1.5rem;
-    }
-    .hero-name em {
-      font-style: italic;
-      color: var(--accent);
-    }
-    .hero-desc {
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      color: var(--ink-2);
-      max-width: 560px;
-      line-height: 1.7;
-      margin-bottom: 2.5rem;
-      font-weight: 300;
-    }
-    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn-primary {
-      background: var(--ink);
-      color: var(--paper);
-      padding: 0.75rem 1.8rem;
-      font-size: 0.88rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      text-decoration: none;
-      border-radius: 2px;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
-    .btn-secondary {
-      border: 1px solid var(--rule);
-      color: var(--ink);
-      padding: 0.75rem 1.8rem;
-      font-size: 0.88rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      text-decoration: none;
-      border-radius: 2px;
-      transition: border-color 0.2s, transform 0.15s;
-    }
-    .btn-secondary:hover { border-color: var(--ink); transform: translateY(-1px); }
-    .hero-stats {
-      position: absolute;
-      right: var(--gutter);
-      bottom: 80px;
-      display: flex; flex-direction: column; gap: 1.5rem;
-      text-align: right;
-    }
-    .stat-num {
-      font-family: var(--serif);
-      font-size: 2rem;
-      line-height: 1;
-      color: var(--ink);
-    }
-    .stat-label {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--ink-3);
-      font-weight: 500;
-    }
-    .hero-scroll {
-      position: absolute;
-      bottom: 32px; left: var(--gutter);
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--ink-3);
-      letter-spacing: 0.1em;
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .hero-scroll::after {
-      content: '';
-      display: block;
-      width: 40px; height: 1px;
-      background: var(--ink-3);
-      animation: scrollLine 2s ease-in-out infinite;
-    }
-    @keyframes scrollLine {
-      0%, 100% { width: 20px; opacity: 0.4; }
-      50% { width: 50px; opacity: 1; }
-    }
-
-    /* ── SECTIONS ── */
-    section { padding: 100px var(--gutter); max-width: var(--max); margin: 0 auto; }
-    .section-header {
-      display: flex; align-items: baseline; gap: 1.5rem;
-      margin-bottom: 4rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid var(--rule);
-    }
-    .section-num {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--accent);
-      letter-spacing: 0.1em;
-    }
-    .section-title {
-      font-family: var(--serif);
-      font-size: clamp(2rem, 4vw, 3rem);
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      flex: 1;
-    }
-    .section-rule {
-      display: block;
-      width: 40px; height: 2px;
-      background: var(--accent);
-      margin-bottom: 1rem;
-    }
-
-    /* ── ABOUT ── */
-    #about { background: var(--paper); }
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
-    }
-    .about-text p {
-      font-size: 1.05rem;
-      color: var(--ink-2);
-      margin-bottom: 1.2rem;
-      font-weight: 300;
-    }
-    .about-text strong { color: var(--ink); font-weight: 600; }
-    .about-aside {
-      display: flex; flex-direction: column; gap: 2rem;
-    }
-    .aside-card {
-      background: var(--paper-2);
-      border: 1px solid var(--rule);
-      padding: 1.5rem;
-      border-radius: 3px;
-    }
-    .aside-card h4 {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--accent);
-      margin-bottom: 0.8rem;
-    }
-    .aside-card p {
-      font-size: 0.9rem;
-      color: var(--ink-2);
-      line-height: 1.6;
-    }
-    .location-badge {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      color: var(--ink-2);
-      background: var(--paper-3);
-      padding: 0.3rem 0.7rem;
-      border-radius: 2px;
-    }
-
-    /* ── SKILLS ── */
-    #skills { background: var(--paper-2); }
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-    .skill-card {
-      background: var(--paper);
-      border: 1px solid var(--rule);
-      padding: 1.8rem;
-      border-radius: 3px;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .skill-card:hover { border-color: var(--accent); transform: translateY(-3px); }
-    .skill-icon {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-    .skill-card h3 {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      margin-bottom: 0.8rem;
-      letter-spacing: -0.01em;
-    }
-    .skill-tags {
-      display: flex; flex-wrap: wrap; gap: 0.4rem;
-    }
-    .tag {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      background: var(--paper-2);
-      border: 1px solid var(--rule);
-      color: var(--ink-2);
-      padding: 0.2rem 0.6rem;
-      border-radius: 2px;
-      letter-spacing: 0.04em;
-    }
-    .tag.accent { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
-
-    /* ── CASE STUDIES ── */
-    #case-studies { background: var(--paper); }
-    .cases-list { display: flex; flex-direction: column; gap: 2rem; }
-    .case-card {
-      display: grid;
-      grid-template-columns: 64px 1fr auto;
-      gap: 2rem;
-      align-items: start;
-      padding: 2rem;
-      background: var(--paper-2);
-      border: 1px solid var(--rule);
-      border-radius: 3px;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .case-card:hover { border-color: var(--accent); transform: translateX(4px); }
-    .case-num {
-      font-family: var(--serif);
-      font-size: 2.5rem;
-      color: var(--paper-3);
-      line-height: 1;
-      font-style: italic;
-    }
-    .case-body h3 {
-      font-family: var(--serif);
-      font-size: 1.4rem;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.4rem;
-    }
-    .case-meta {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.8rem;
-    }
-    .case-body p {
-      font-size: 0.92rem;
-      color: var(--ink-2);
-      line-height: 1.7;
-      margin-bottom: 1rem;
-    }
-    .case-outcomes {
-      display: flex; flex-wrap: wrap; gap: 0.5rem;
-    }
-    .outcome-badge {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--accent);
-      background: var(--accent-light);
-      padding: 0.2rem 0.6rem;
-      border-radius: 2px;
-    }
-    .case-arrow {
-      font-size: 1.5rem;
-      color: var(--ink-3);
-      align-self: center;
-      transition: color 0.2s, transform 0.2s;
-    }
-    .case-card:hover .case-arrow { color: var(--accent); transform: translateX(4px); }
-
-    /* ── ARCHITECTURE DIAGRAMS ── */
-    #architecture { background: var(--paper-2); }
-    .arch-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-    .arch-card {
-      background: var(--paper);
-      border: 1px solid var(--rule);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-    .arch-diagram {
-      padding: 2rem;
-      background: #f8f8f6;
-      border-bottom: 1px solid var(--rule);
-      min-height: 200px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .arch-diagram svg { width: 100%; max-width: 340px; }
-    .arch-info { padding: 1.5rem; }
-    .arch-info h3 {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      margin-bottom: 0.4rem;
-    }
-    .arch-info p { font-size: 0.88rem; color: var(--ink-2); line-height: 1.6; }
-
-    /* ── EXPERIENCE ── */
-    #experience { background: var(--paper); }
-    .exp-timeline { position: relative; padding-left: 2rem; }
-    .exp-timeline::before {
-      content: '';
-      position: absolute; left: 0; top: 8px; bottom: 8px;
-      width: 1px; background: var(--rule);
-    }
-    .exp-item {
-      position: relative;
-      margin-bottom: 3rem;
-      padding-bottom: 3rem;
-      border-bottom: 1px solid var(--rule);
-    }
-    .exp-item:last-child { border-bottom: none; margin-bottom: 0; }
-    .exp-item::before {
-      content: '';
-      position: absolute;
-      left: -2rem; top: 8px;
-      width: 9px; height: 9px;
-      border-radius: 50%;
-      background: var(--paper);
-      border: 2px solid var(--accent);
-      transform: translateX(-4px);
-    }
-    .exp-header { display: flex; justify-content: space-between; align-items: start; gap: 1rem; margin-bottom: 0.5rem; }
-    .exp-title {
-      font-family: var(--serif);
-      font-size: 1.3rem;
-      letter-spacing: -0.01em;
-    }
-    .exp-period {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--ink-3);
-      letter-spacing: 0.08em;
-      white-space: nowrap;
-      padding-top: 0.3rem;
-    }
-    .exp-company {
-      font-size: 0.88rem;
-      color: var(--accent);
-      font-weight: 500;
-      margin-bottom: 0.8rem;
-    }
-    .exp-bullets {
-      list-style: none;
-      padding: 0;
-    }
-    .exp-bullets li {
-      font-size: 0.9rem;
-      color: var(--ink-2);
-      padding: 0.3rem 0 0.3rem 1.2rem;
-      position: relative;
-      line-height: 1.6;
-    }
-    .exp-bullets li::before {
-      content: '—';
-      position: absolute; left: 0;
-      color: var(--accent);
-      font-size: 0.8rem;
-    }
-
-    /* ── BLOG ── */
-    #blog { background: var(--paper-2); }
-    .blog-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-    .blog-card {
-      background: var(--paper);
-      border: 1px solid var(--rule);
-      border-radius: 3px;
-      padding: 1.8rem;
-      transition: border-color 0.2s, transform 0.2s;
-      cursor: pointer;
-    }
-    .blog-card:hover { border-color: var(--accent); transform: translateY(-3px); }
-    .blog-tag {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--accent);
-      margin-bottom: 0.8rem;
-    }
-    .blog-card h3 {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      letter-spacing: -0.01em;
-      margin-bottom: 0.6rem;
-      line-height: 1.3;
-    }
-    .blog-card p {
-      font-size: 0.85rem;
-      color: var(--ink-2);
-      line-height: 1.6;
-      margin-bottom: 1rem;
-    }
-    .blog-meta {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      color: var(--ink-3);
-      letter-spacing: 0.06em;
-    }
-
-    /* ── CONTACT ── */
-    #contact {
-      background: var(--ink);
-      color: var(--paper);
-      max-width: 100%;
-      padding: 100px var(--gutter);
-    }
-    .contact-inner { max-width: var(--max); margin: 0 auto; }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-    .contact-left h2 {
-      font-family: var(--serif);
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      margin-bottom: 1rem;
-    }
-    .contact-left h2 em { color: var(--accent); font-style: italic; }
-    .contact-left p {
-      font-size: 1rem;
-      color: #aaa;
-      line-height: 1.7;
-      font-weight: 300;
-      margin-bottom: 2rem;
-    }
-    .contact-links { display: flex; flex-direction: column; gap: 0.8rem; }
-    .contact-link {
-      display: flex; align-items: center; gap: 0.8rem;
-      font-size: 0.9rem;
-      color: #ccc;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .contact-link:hover { color: var(--accent); }
-    .contact-link-icon {
-      width: 36px; height: 36px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 3px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem;
-    }
-    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
-    .contact-form input,
-    .contact-form textarea {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
-      color: var(--paper);
-      padding: 0.85rem 1rem;
-      font-family: var(--sans);
-      font-size: 0.9rem;
-      border-radius: 2px;
-      outline: none;
-      transition: border-color 0.2s;
-      resize: vertical;
-    }
-    .contact-form input::placeholder,
-    .contact-form textarea::placeholder { color: #666; }
-    .contact-form input:focus,
-    .contact-form textarea:focus { border-color: var(--accent); }
-    .contact-form textarea { min-height: 120px; }
-    .contact-form button {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 0.85rem 2rem;
-      font-family: var(--sans);
-      font-size: 0.88rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      cursor: pointer;
-      border-radius: 2px;
-      transition: opacity 0.2s, transform 0.15s;
-    }
-    .contact-form button:hover { opacity: 0.85; transform: translateY(-1px); }
-
-    /* ── FOOTER ── */
-    footer {
-      background: #0a0a0a;
-      color: #555;
-      text-align: center;
-      padding: 2rem var(--gutter);
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-    }
-
-    /* ── FADE IN ── */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .fade-in.visible { opacity: 1; transform: none; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 860px) {
-      .about-grid, .arch-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .skills-grid, .blog-grid { grid-template-columns: 1fr 1fr; }
-      .hero-stats { display: none; }
-      .nav-links { display: none; }
-      .case-card { grid-template-columns: 1fr; }
-      .case-num { display: none; }
-    }
-    @media (max-width: 540px) {
-      .skills-grid, .blog-grid { grid-template-columns: 1fr; }
-    }
-  </style>
-</head>
-<body>
-
-<!-- NAV -->
-<nav>
-  <a href="#hero" class="nav-logo">Ripal Darji</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#case-studies">Case Studies</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#blog">Blog</a></li>
-  </ul>
-  <a href="#contact" class="nav-cta">Let's Talk</a>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-tag">Software Architect · Seattle, WA</div>
-  <h1 class="hero-name">Ripal<br /><em>Darji</em></h1>
-  <p class="hero-desc">
-    I design scalable distributed systems and architect cloud-native solutions —
-    bridging 10+ years of hands-on engineering into strategic technical leadership.
-  </p>
-  <div class="hero-actions">
-    <a href="#case-studies" class="btn-primary">View Case Studies</a>
-    <a href="#contact" class="btn-secondary">Open to Opportunities</a>
-  </div>
-  <div class="hero-stats">
-    <div>
-      <div class="stat-num">10+</div>
-      <div class="stat-label">Years Experience</div>
-    </div>
-    <div>
-      <div class="stat-num">AWS</div>
-      <div class="stat-label">Certified</div>
-    </div>
-    <div>
-      <div class="stat-num">∞</div>
-      <div class="stat-label">Systems Designed</div>
-    </div>
-  </div>
-  <div class="hero-scroll">scroll</div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-header fade-in">
-    <span class="section-num">01</span>
-    <h2 class="section-title">About</h2>
-  </div>
-  <div class="about-grid">
-    <div class="about-text fade-in">
-      <p>
-        I'm a <strong>Software Architect</strong> with 10+ years of full-stack engineering experience,
-        specializing in Java Spring Boot microservices, React frontends, and AWS cloud infrastructure.
-      </p>
-      <p>
-        My approach combines deep hands-on technical expertise with <strong>system-level thinking</strong> —
-        designing architectures that are maintainable, resilient, and built to scale.
-        I've led teams through monolith-to-microservices migrations, event-driven system redesigns,
-        and zero-downtime cloud migrations.
-      </p>
-      <p>
-        Currently based in <strong>Seattle, WA</strong>, I'm seeking Architect roles where I can
-        shape technical direction, mentor engineering teams, and drive outcomes that matter.
-      </p>
-      <br />
-      <span class="location-badge">📍 Seattle, WA · Open to Work</span>
-    </div>
-    <div class="about-aside fade-in">
-      <div class="aside-card">
-        <h4>Focus Areas</h4>
-        <p>Distributed Systems · Microservices Architecture · Cloud-Native Design · API Design · Event-Driven Architecture · Technical Leadership</p>
-      </div>
-      <div class="aside-card">
-        <h4>Currently Learning</h4>
-        <p>AWS Solutions Architect Professional · Domain-Driven Design · Platform Engineering · FinOps on AWS</p>
-      </div>
-      <div class="aside-card">
-        <h4>Looking For</h4>
-        <p>Software Architect · Solutions Architect · Principal Engineer roles at companies building impactful products in Seattle.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="section-header fade-in">
-    <span class="section-num">02</span>
-    <h2 class="section-title">Technical Skills</h2>
-  </div>
-  <div class="skills-grid">
-    <div class="skill-card fade-in">
-      <div class="skill-icon">⚙️</div>
-      <h3>Backend Architecture</h3>
-      <div class="skill-tags">
-        <span class="tag accent">Java</span>
-        <span class="tag accent">Spring Boot</span>
-        <span class="tag">Microservices</span>
-        <span class="tag">REST APIs</span>
-        <span class="tag">GraphQL</span>
-        <span class="tag">Kafka</span>
-        <span class="tag">gRPC</span>
-        <span class="tag">Hibernate</span>
-      </div>
-    </div>
-    <div class="skill-card fade-in">
-      <div class="skill-icon">☁️</div>
-      <h3>Cloud & Infrastructure</h3>
-      <div class="skill-tags">
-        <span class="tag accent">AWS</span>
-        <span class="tag">ECS / EKS</span>
-        <span class="tag">Lambda</span>
-        <span class="tag">RDS / DynamoDB</span>
-        <span class="tag">S3 / CloudFront</span>
-        <span class="tag">SQS / SNS</span>
-        <span class="tag">API Gateway</span>
-        <span class="tag">Terraform</span>
-      </div>
-    </div>
-    <div class="skill-card fade-in">
-      <div class="skill-icon">⚛️</div>
-      <h3>Frontend Engineering</h3>
-      <div class="skill-tags">
-        <span class="tag accent">React</span>
-        <span class="tag">TypeScript</span>
-        <span class="tag">Redux</span>
-        <span class="tag">Next.js</span>
-        <span class="tag">HTML / CSS</span>
-        <span class="tag">Jest</span>
-        <span class="tag">Webpack</span>
-      </div>
-    </div>
-    <div class="skill-card fade-in">
-      <div class="skill-icon">🗄️</div>
-      <h3>Data & Messaging</h3>
-      <div class="skill-tags">
-        <span class="tag accent">PostgreSQL</span>
-        <span class="tag">MySQL</span>
-        <span class="tag">Redis</span>
-        <span class="tag">Elasticsearch</span>
-        <span class="tag">DynamoDB</span>
-        <span class="tag">Kafka</span>
-        <span class="tag">RabbitMQ</span>
-      </div>
-    </div>
-    <div class="skill-card fade-in">
-      <div class="skill-icon">🔄</div>
-      <h3>DevOps & CI/CD</h3>
-      <div class="skill-tags">
-        <span class="tag accent">Docker</span>
-        <span class="tag">Kubernetes</span>
-        <span class="tag">GitHub Actions</span>
-        <span class="tag">Jenkins</span>
-        <span class="tag">ArgoCD</span>
-        <span class="tag">Datadog</span>
-        <span class="tag">Prometheus</span>
-      </div>
-    </div>
-    <div class="skill-card fade-in">
-      <div class="skill-icon">🏛️</div>
-      <h3>Architecture Patterns</h3>
-      <div class="skill-tags">
-        <span class="tag accent">DDD</span>
-        <span class="tag">Event Sourcing</span>
-        <span class="tag">CQRS</span>
-        <span class="tag">Saga Pattern</span>
-        <span class="tag">Strangler Fig</span>
-        <span class="tag">Hexagonal</span>
-        <span class="tag">ADR</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CASE STUDIES -->
-<section id="case-studies">
-  <div class="section-header fade-in">
-    <span class="section-num">03</span>
-    <h2 class="section-title">Architecture Case Studies</h2>
-  </div>
-  <div class="cases-list">
-    <div class="case-card fade-in">
-      <div class="case-num">01</div>
-      <div class="case-body">
-        <div class="case-meta">Microservices Migration · AWS · Java</div>
-        <h3>Monolith to Microservices: E-Commerce Platform</h3>
-        <p>
-          Led the architectural redesign of a monolithic Java application serving 500K+ daily users
-          into 12 domain-aligned microservices using the Strangler Fig pattern.
-          Designed event-driven communication via Kafka, implemented API Gateway routing,
-          and introduced circuit breakers using Resilience4j to improve fault isolation.
-        </p>
-        <div class="case-outcomes">
-          <span class="outcome-badge">↑ 4× throughput</span>
-          <span class="outcome-badge">↓ 65% deployment time</span>
-          <span class="outcome-badge">99.98% uptime</span>
-          <span class="outcome-badge">Zero-downtime migration</span>
-        </div>
-      </div>
-      <div class="case-arrow">→</div>
-    </div>
-    <div class="case-card fade-in">
-      <div class="case-num">02</div>
-      <div class="case-body">
-        <div class="case-meta">Event-Driven · AWS SQS/SNS · Spring Boot</div>
-        <h3>Real-Time Notification System at Scale</h3>
-        <p>
-          Architected an event-driven notification pipeline handling 2M+ daily events across
-          email, SMS, and push channels. Designed a fan-out pattern using SNS + SQS,
-          introduced idempotency keys to prevent duplicate delivery, and built
-          a React-based admin dashboard for delivery monitoring.
-        </p>
-        <div class="case-outcomes">
-          <span class="outcome-badge">2M+ daily events</span>
-          <span class="outcome-badge">↓ 80% latency</span>
-          <span class="outcome-badge">Idempotent delivery</span>
-          <span class="outcome-badge">Multi-channel</span>
-        </div>
-      </div>
-      <div class="case-arrow">→</div>
-    </div>
-    <div class="case-card fade-in">
-      <div class="case-num">03</div>
-      <div class="case-body">
-        <div class="case-meta">CQRS · DynamoDB · React</div>
-        <h3>Multi-Tenant SaaS Platform Architecture</h3>
-        <p>
-          Designed a multi-tenant SaaS platform using CQRS and Event Sourcing on AWS.
-          Introduced tenant isolation at the data layer using DynamoDB partition key strategies,
-          designed a shared-services layer for auth and billing, and built
-          a React + TypeScript frontend with role-based access controls.
-        </p>
-        <div class="case-outcomes">
-          <span class="outcome-badge">50+ tenants</span>
-          <span class="outcome-badge">Full data isolation</span>
-          <span class="outcome-badge">↓ 40% infra cost</span>
-          <span class="outcome-badge">RBAC</span>
-        </div>
-      </div>
-      <div class="case-arrow">→</div>
-    </div>
-    <div class="case-card fade-in">
-      <div class="case-num">04</div>
-      <div class="case-body">
-        <div class="case-meta">AWS Migration · EKS · Terraform</div>
-        <h3>On-Premise to AWS Cloud Migration</h3>
-        <p>
-          Planned and executed a full cloud migration of 8 legacy services from on-premise
-          to AWS EKS with Terraform-managed infrastructure. Defined migration waves,
-          introduced blue/green deployments via ArgoCD, and established observability
-          using Datadog APM and custom dashboards.
-        </p>
-        <div class="case-outcomes">
-          <span class="outcome-badge">8 services migrated</span>
-          <span class="outcome-badge">↓ 35% infra cost</span>
-          <span class="outcome-badge">Blue/Green deploys</span>
-          <span class="outcome-badge">IaC with Terraform</span>
-        </div>
-      </div>
-      <div class="case-arrow">→</div>
-    </div>
-  </div>
-</section>
-
-<!-- ARCHITECTURE DIAGRAMS -->
-<section id="architecture">
-  <div class="section-header fade-in">
-    <span class="section-num">04</span>
-    <h2 class="section-title">Architecture Diagrams</h2>
-  </div>
-  <div class="arch-grid">
-    <div class="arch-card fade-in">
-      <div class="arch-diagram">
-        <!-- Microservices Diagram -->
-        <svg viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg" font-family="DM Mono, monospace">
-          <!-- API Gateway -->
-          <rect x="120" y="10" width="100" height="32" rx="2" fill="#1a6b4a" />
-          <text x="170" y="31" text-anchor="middle" fill="white" font-size="9" font-weight="500">API Gateway</text>
-          <!-- Lines down -->
-          <line x1="170" y1="42" x2="60" y2="80" stroke="#dddbd3" stroke-width="1.5"/>
-          <line x1="170" y1="42" x2="170" y2="80" stroke="#dddbd3" stroke-width="1.5"/>
-          <line x1="170" y1="42" x2="280" y2="80" stroke="#dddbd3" stroke-width="1.5"/>
-          <!-- Services -->
-          <rect x="10" y="80" width="100" height="30" rx="2" fill="#f3f2ee" stroke="#dddbd3" stroke-width="1"/>
-          <text x="60" y="99" text-anchor="middle" fill="#444" font-size="8">User Service</text>
-          <rect x="120" y="80" width="100" height="30" rx="2" fill="#f3f2ee" stroke="#dddbd3" stroke-width="1"/>
-          <text x="170" y="99" text-anchor="middle" fill="#444" font-size="8">Order Service</text>
-          <rect x="230" y="80" width="100" height="30" rx="2" fill="#f3f2ee" stroke="#dddbd3" stroke-width="1"/>
-          <text x="280" y="99" text-anchor="middle" fill="#444" font-size="8">Payment Service</text>
-          <!-- Kafka bus -->
-          <rect x="60" y="140" width="220" height="24" rx="2" fill="#fff3e8" stroke="#c8873a" stroke-width="1"/>
-          <text x="170" y="156" text-anchor="middle" fill="#c8873a" font-size="8" font-weight="500">Kafka Event Bus</text>
-          <line x1="60" y1="110" x2="100" y2="140" stroke="#c8873a" stroke-width="1" stroke-dasharray="3,2"/>
-          <line x1="170" y1="110" x2="170" y2="140" stroke="#c8873a" stroke-width="1" stroke-dasharray="3,2"/>
-          <line x1="280" y1="110" x2="240" y2="140" stroke="#c8873a" stroke-width="1" stroke-dasharray="3,2"/>
-          <!-- DB icons -->
-          <ellipse cx="60" cy="185" rx="24" ry="8" fill="#f3f2ee" stroke="#dddbd3" stroke-width="1"/>
-          <rect x="36" y="177" width="48" height="8" fill="#f3f2ee" stroke="#dddbd3" stroke-width="1"/>
-          <text x="60" y="197" text-anchor="middle" fill="#888" font-size="7">RDS</text>
-          <ellipse cx="170" cy="185" rx="24" ry="8" fill="#f3f2ee" stroke="#dddbd3" stroke-width="1"/>
-          <rect x="146" y="177" width="48" height="8" fill="#f3f2ee" stroke="#dddbd3" stroke-width="1"/>
-          <text x="170" y="197" text-anchor="middle" fill="#888" font-size="7">DynamoDB</text>
-          <ellipse cx="280" cy="185" rx="24" ry="8" fill="#f3f2ee" stroke="#dddbd3" stroke-width="1"/>
-          <rect x="256" y="177" width="48" height="8" fill="#f3f2ee" stroke="#dddbd3" stroke-width="1"/>
-          <text x="280" y="197" text-anchor="middle" fill="#888" font-size="7">RDS</text>
-        </svg>
-      </div>
-      <div class="arch-info">
-        <h3>Microservices on AWS</h3>
-        <p>Domain-aligned services with event-driven communication via Kafka and independent data stores per service.</p>
-      </div>
-    </div>
-    <div class="arch-card fade-in">
-      <div class="arch-diagram">
-        <!-- CQRS Diagram -->
-        <svg viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg" font-family="DM Mono, monospace">
-          <!-- Client -->
-          <rect x="120" y="10" width="100" height="28" rx="2" fill="#1a6b4a"/>
-          <text x="170" y="28" text-anchor="middle" fill="white" font-size="9">React Client</text>
-          <!-- Command / Query split -->
-          <line x1="140" y1="38" x2="80" y2="76" stroke="#dddbd3" stroke-width="1.5"/>
-          <line x1="200" y1="38" x2="260" y2="76" stroke="#dddbd3" stroke-width="1.5"/>
-          <rect x="20" y="76" width="120" height="28" rx="2" fill="#fff3e8" stroke="#c8873a" stroke-width="1"/>
-          <text x="80" y="94" text-anchor="middle" fill="#c8873a" font-size="8" font-weight="500">Command Handler</text>
-          <rect x="200" y="76" width="120" height="28" rx="2" fill="#e8f5ee" stroke="#1a6b4a" stroke-width="1"/>
-          <text x="260" y="94" text-anchor="middle" fill="#1a6b4a" font-size="8" font-weight="500">Query Handler</text>
-          <!-- Event store -->
-          <line x1="80" y1="104" x2="80" y2="130" stroke="#c8873a" stroke-width="1.5"/>
-          <rect x="20" y="130" width="120" height="28" rx="2" fill="#f3f2ee" stroke="#dddbd3"/>
-          <text x="80" y="148" text-anchor="middle" fill="#444" font-size="8">Event Store</text>
-          <!-- Read model -->
-          <line x1="260" y1="104" x2="260" y2="130" stroke="#1a6b4a" stroke-width="1.5"/>
-          <rect x="200" y="130" width="120" height="28" rx="2" fill="#f3f2ee" stroke="#dddbd3"/>
-          <text x="260" y="148" text-anchor="middle" fill="#444" font-size="8">Read Model (Redis)</text>
-          <!-- Projection arrow -->
-          <path d="M140 144 Q170 155 200 144" stroke="#888" stroke-width="1" fill="none" stroke-dasharray="3,2"/>
-          <text x="170" y="172" text-anchor="middle" fill="#888" font-size="7">projection</text>
-        </svg>
-      </div>
-      <div class="arch-info">
-        <h3>CQRS + Event Sourcing</h3>
-        <p>Separate read/write models with an append-only event store and Redis-backed read projections for fast queries.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="section-header fade-in">
-    <span class="section-num">05</span>
-    <h2 class="section-title">Experience</h2>
-  </div>
-  <div class="exp-timeline">
-    <div class="exp-item fade-in">
-      <div class="exp-header">
-        <div class="exp-title">Senior Software Engineer → Lead Engineer</div>
-        <div class="exp-period">2020 — 2024</div>
-      </div>
-      <div class="exp-company">[ Your Most Recent Company ] · Seattle, WA</div>
-      <ul class="exp-bullets">
-        <li>Architected migration of monolithic Java application to 12 microservices, improving deployment frequency by 4×</li>
-        <li>Designed event-driven notification system handling 2M+ daily events using AWS SQS/SNS</li>
-        <li>Led cross-functional team of 8 engineers, defined technical roadmap and ADRs</li>
-        <li>Introduced Infrastructure as Code using Terraform, reducing environment provisioning time by 70%</li>
-        <li>Established observability standards: Datadog APM, distributed tracing, custom SLO dashboards</li>
-      </ul>
-    </div>
-    <div class="exp-item fade-in">
-      <div class="exp-header">
-        <div class="exp-title">Full Stack Engineer</div>
-        <div class="exp-period">2017 — 2020</div>
-      </div>
-      <div class="exp-company">[ Previous Company ] · Remote / On-site</div>
-      <ul class="exp-bullets">
-        <li>Built and maintained Java Spring Boot REST APIs serving 200K+ users</li>
-        <li>Developed React frontend with Redux state management and reusable component library</li>
-        <li>Migrated on-premise services to AWS EC2/RDS, reducing operational overhead by 40%</li>
-        <li>Implemented CI/CD pipelines with Jenkins and Docker, cutting release cycles from weekly to daily</li>
-      </ul>
-    </div>
-    <div class="exp-item fade-in">
-      <div class="exp-header">
-        <div class="exp-title">Software Engineer</div>
-        <div class="exp-period">2014 — 2017</div>
-      </div>
-      <div class="exp-company">[ Earlier Company ] · On-site</div>
-      <ul class="exp-bullets">
-        <li>Developed Java EE backend services and JSP/jQuery frontends for enterprise clients</li>
-        <li>Designed relational database schemas in MySQL, optimized slow queries and introduced indexing strategies</li>
-        <li>Contributed to transition from waterfall to agile sprints, improving team delivery predictability</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- BLOG -->
-<section id="blog">
-  <div class="section-header fade-in">
-    <span class="section-num">06</span>
-    <h2 class="section-title">Thought Leadership</h2>
-  </div>
-  <div class="blog-grid">
-    <div class="blog-card fade-in">
-      <div class="blog-tag">Architecture · Microservices</div>
-      <h3>When NOT to Use Microservices</h3>
-      <p>A practical framework for evaluating whether microservices will help or hurt your team — drawing from real migration experience.</p>
-      <div class="blog-meta">Coming Soon · Medium</div>
-    </div>
-    <div class="blog-card fade-in">
-      <div class="blog-tag">AWS · Event-Driven</div>
-      <h3>Building Reliable Event Pipelines on AWS</h3>
-      <p>Deep dive into idempotency, dead-letter queues, and retry strategies using SQS, SNS, and Lambda.</p>
-      <div class="blog-meta">Coming Soon · LinkedIn</div>
-    </div>
-    <div class="blog-card fade-in">
-      <div class="blog-tag">System Design · Interview</div>
-      <h3>How I Approach System Design Interviews</h3>
-      <p>My framework for tackling ambiguous system design questions — from requirements gathering to trade-off articulation.</p>
-      <div class="blog-meta">Coming Soon · Dev.to</div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-inner">
-    <div class="contact-grid">
-      <div class="contact-left fade-in">
-        <h2>Let's build something <em>great</em> together.</h2>
-        <p>I'm actively exploring Software Architect and Solutions Architect opportunities in Seattle. If you're building something ambitious and need someone who can both design systems and lead engineers — let's talk.</p>
-        <div class="contact-links">
-          <a href="https://linkedin.com/in/ripaldarji" class="contact-link" target="_blank">
-            <span class="contact-link-icon">in</span>
-            linkedin.com/in/ripaldarji
-          </a>
-          <a href="https://github.com/ripaldarji" class="contact-link" target="_blank">
-            <span class="contact-link-icon">gh</span>
-            github.com/ripaldarji
-          </a>
-          <a href="mailto:ripal.darji@email.com" class="contact-link">
-            <span class="contact-link-icon">@</span>
-            ripal.darji@email.com
-          </a>
-        </div>
-      </div>
-      <div class="fade-in">
-        <form class="contact-form" onsubmit="handleSubmit(event)">
-          <input type="text" placeholder="Your Name" required />
-          <input type="email" placeholder="Your Email" required />
-          <input type="text" placeholder="Company / Role" />
-          <textarea placeholder="Tell me about the opportunity..."></textarea>
-          <button type="submit">Send Message →</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <p>© 2024 Ripal Darji · Software Architect · Seattle, WA · Built with GitHub Pages</p>
-</footer>
-
-<script>
-  // Intersection Observer for fade-in
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        observer.unobserve(entry.target);
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ripal Darji — Software Architect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // Smooth active nav
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
-    navLinks.forEach(a => {
-      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
-    });
-  });
+      :root {
+        --ink: #111111;
+        --ink-2: #444444;
+        --ink-3: #888888;
+        --paper: #fafaf8;
+        --paper-2: #f3f2ee;
+        --paper-3: #e8e6df;
+        --accent: #1a6b4a;
+        --accent-light: #e8f5ee;
+        --accent-2: #c8873a;
+        --rule: #dddbd3;
+        --serif: "DM Serif Display", Georgia, serif;
+        --sans: "DM Sans", sans-serif;
+        --mono: "DM Mono", monospace;
+        --max: 1100px;
+        --gutter: clamp(1.5rem, 5vw, 4rem);
+      }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('button');
-    btn.textContent = 'Message Sent ✓';
-    btn.style.background = '#1a6b4a';
-    setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; }, 3000);
-  }
-</script>
-</body>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--sans);
+        background: var(--paper);
+        color: var(--ink);
+        font-size: 16px;
+        line-height: 1.7;
+        overflow-x: hidden;
+      }
+
+      /* ── NAV ── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: rgba(250, 250, 248, 0.92);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--rule);
+        padding: 0 var(--gutter);
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.15rem;
+        color: var(--ink);
+        text-decoration: none;
+        letter-spacing: -0.01em;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.82rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--ink-2);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--accent);
+      }
+      .nav-cta {
+        font-size: 0.8rem;
+        font-weight: 500;
+        background: var(--ink);
+        color: var(--paper);
+        padding: 0.45rem 1.1rem;
+        border-radius: 2px;
+        text-decoration: none;
+        letter-spacing: 0.04em;
+        transition: background 0.2s;
+      }
+      .nav-cta:hover {
+        background: var(--accent);
+      }
+
+      /* ── HERO ── */
+      #hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 100px var(--gutter) 60px;
+        max-width: var(--max);
+        margin: 0 auto;
+        position: relative;
+      }
+      .hero-tag {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        color: var(--accent);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .hero-tag::before {
+        content: "";
+        display: inline-block;
+        width: 24px;
+        height: 1px;
+        background: var(--accent);
+      }
+      .hero-name {
+        font-family: var(--serif);
+        font-size: clamp(3.5rem, 8vw, 7rem);
+        line-height: 1;
+        letter-spacing: -0.03em;
+        color: var(--ink);
+        margin-bottom: 1.5rem;
+      }
+      .hero-name em {
+        font-style: italic;
+        color: var(--accent);
+      }
+      .hero-desc {
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        color: var(--ink-2);
+        max-width: 560px;
+        line-height: 1.7;
+        margin-bottom: 2.5rem;
+        font-weight: 300;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .btn-primary {
+        background: var(--ink);
+        color: var(--paper);
+        padding: 0.75rem 1.8rem;
+        font-size: 0.88rem;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        text-decoration: none;
+        border-radius: 2px;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+      .btn-primary:hover {
+        background: var(--accent);
+        transform: translateY(-1px);
+      }
+      .btn-secondary {
+        border: 1px solid var(--rule);
+        color: var(--ink);
+        padding: 0.75rem 1.8rem;
+        font-size: 0.88rem;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        text-decoration: none;
+        border-radius: 2px;
+        transition:
+          border-color 0.2s,
+          transform 0.15s;
+      }
+      .btn-secondary:hover {
+        border-color: var(--ink);
+        transform: translateY(-1px);
+      }
+      .hero-stats {
+        position: absolute;
+        right: var(--gutter);
+        bottom: 80px;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: right;
+      }
+      .stat-num {
+        font-family: var(--serif);
+        font-size: 2rem;
+        line-height: 1;
+        color: var(--ink);
+      }
+      .stat-label {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--ink-3);
+        font-weight: 500;
+      }
+      .hero-scroll {
+        position: absolute;
+        bottom: 32px;
+        left: var(--gutter);
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--ink-3);
+        letter-spacing: 0.1em;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .hero-scroll::after {
+        content: "";
+        display: block;
+        width: 40px;
+        height: 1px;
+        background: var(--ink-3);
+        animation: scrollLine 2s ease-in-out infinite;
+      }
+      @keyframes scrollLine {
+        0%,
+        100% {
+          width: 20px;
+          opacity: 0.4;
+        }
+        50% {
+          width: 50px;
+          opacity: 1;
+        }
+      }
+
+      /* ── SECTIONS ── */
+      section {
+        padding: 100px var(--gutter);
+        max-width: var(--max);
+        margin: 0 auto;
+      }
+      .section-header {
+        display: flex;
+        align-items: baseline;
+        gap: 1.5rem;
+        margin-bottom: 4rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--rule);
+      }
+      .section-num {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        color: var(--accent);
+        letter-spacing: 0.1em;
+      }
+      .section-title {
+        font-family: var(--serif);
+        font-size: clamp(2rem, 4vw, 3rem);
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        flex: 1;
+      }
+      .section-rule {
+        display: block;
+        width: 40px;
+        height: 2px;
+        background: var(--accent);
+        margin-bottom: 1rem;
+      }
+
+      /* ── ABOUT ── */
+      #about {
+        background: var(--paper);
+      }
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: start;
+      }
+      .about-text p {
+        font-size: 1.05rem;
+        color: var(--ink-2);
+        margin-bottom: 1.2rem;
+        font-weight: 300;
+      }
+      .about-text strong {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      .about-aside {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+      .aside-card {
+        background: var(--paper-2);
+        border: 1px solid var(--rule);
+        padding: 1.5rem;
+        border-radius: 3px;
+      }
+      .aside-card h4 {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        margin-bottom: 0.8rem;
+      }
+      .aside-card p {
+        font-size: 0.9rem;
+        color: var(--ink-2);
+        line-height: 1.6;
+      }
+      .location-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        color: var(--ink-2);
+        background: var(--paper-3);
+        padding: 0.3rem 0.7rem;
+        border-radius: 2px;
+      }
+
+      /* ── SKILLS ── */
+      #skills {
+        background: var(--paper-2);
+      }
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+      .skill-card {
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        padding: 1.8rem;
+        border-radius: 3px;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+      }
+      .skill-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-3px);
+      }
+      .skill-icon {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      .skill-card h3 {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+        letter-spacing: -0.01em;
+      }
+      .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+      .tag {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        background: var(--paper-2);
+        border: 1px solid var(--rule);
+        color: var(--ink-2);
+        padding: 0.2rem 0.6rem;
+        border-radius: 2px;
+        letter-spacing: 0.04em;
+      }
+      .tag.accent {
+        background: var(--accent-light);
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      /* ── CASE STUDIES ── */
+      #case-studies {
+        background: var(--paper);
+      }
+      .cases-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+      .case-card {
+        display: grid;
+        grid-template-columns: 64px 1fr auto;
+        gap: 2rem;
+        align-items: start;
+        padding: 2rem;
+        background: var(--paper-2);
+        border: 1px solid var(--rule);
+        border-radius: 3px;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+      }
+      .case-card:hover {
+        border-color: var(--accent);
+        transform: translateX(4px);
+      }
+      .case-num {
+        font-family: var(--serif);
+        font-size: 2.5rem;
+        color: var(--paper-3);
+        line-height: 1;
+        font-style: italic;
+      }
+      .case-body h3 {
+        font-family: var(--serif);
+        font-size: 1.4rem;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.4rem;
+      }
+      .case-meta {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.8rem;
+      }
+      .case-body p {
+        font-size: 0.92rem;
+        color: var(--ink-2);
+        line-height: 1.7;
+        margin-bottom: 1rem;
+      }
+      .case-outcomes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .outcome-badge {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 0.2rem 0.6rem;
+        border-radius: 2px;
+      }
+      .case-arrow {
+        font-size: 1.5rem;
+        color: var(--ink-3);
+        align-self: center;
+        transition:
+          color 0.2s,
+          transform 0.2s;
+      }
+      .case-card:hover .case-arrow {
+        color: var(--accent);
+        transform: translateX(4px);
+      }
+
+      /* ── ARCHITECTURE DIAGRAMS ── */
+      #architecture {
+        background: var(--paper-2);
+      }
+      .arch-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+      .arch-card {
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .arch-diagram {
+        padding: 2rem;
+        background: #f8f8f6;
+        border-bottom: 1px solid var(--rule);
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .arch-diagram svg {
+        width: 100%;
+        max-width: 340px;
+      }
+      .arch-info {
+        padding: 1.5rem;
+      }
+      .arch-info h3 {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        margin-bottom: 0.4rem;
+      }
+      .arch-info p {
+        font-size: 0.88rem;
+        color: var(--ink-2);
+        line-height: 1.6;
+      }
+
+      /* ── EXPERIENCE ── */
+      #experience {
+        background: var(--paper);
+      }
+      .exp-timeline {
+        position: relative;
+        padding-left: 2rem;
+      }
+      .exp-timeline::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 8px;
+        bottom: 8px;
+        width: 1px;
+        background: var(--rule);
+      }
+      .exp-item {
+        position: relative;
+        margin-bottom: 3rem;
+        padding-bottom: 3rem;
+        border-bottom: 1px solid var(--rule);
+      }
+      .exp-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+      }
+      .exp-item::before {
+        content: "";
+        position: absolute;
+        left: -2rem;
+        top: 8px;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--paper);
+        border: 2px solid var(--accent);
+        transform: translateX(-4px);
+      }
+      .exp-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      .exp-title {
+        font-family: var(--serif);
+        font-size: 1.3rem;
+        letter-spacing: -0.01em;
+      }
+      .exp-period {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--ink-3);
+        letter-spacing: 0.08em;
+        white-space: nowrap;
+        padding-top: 0.3rem;
+      }
+      .exp-company {
+        font-size: 0.88rem;
+        color: var(--accent);
+        font-weight: 500;
+        margin-bottom: 0.8rem;
+      }
+      .exp-bullets {
+        list-style: none;
+        padding: 0;
+      }
+      .exp-bullets li {
+        font-size: 0.9rem;
+        color: var(--ink-2);
+        padding: 0.3rem 0 0.3rem 1.2rem;
+        position: relative;
+        line-height: 1.6;
+      }
+      .exp-bullets li::before {
+        content: "—";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+        font-size: 0.8rem;
+      }
+
+      /* ── BLOG ── */
+      #blog {
+        background: var(--paper-2);
+      }
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+      .blog-card {
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        border-radius: 3px;
+        padding: 1.8rem;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+        cursor: pointer;
+      }
+      .blog-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-3px);
+      }
+      .blog-tag {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        margin-bottom: 0.8rem;
+      }
+      .blog-card h3 {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        letter-spacing: -0.01em;
+        margin-bottom: 0.6rem;
+        line-height: 1.3;
+      }
+      .blog-card p {
+        font-size: 0.85rem;
+        color: var(--ink-2);
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+      .blog-meta {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        color: var(--ink-3);
+        letter-spacing: 0.06em;
+      }
+
+      /* ── CONTACT ── */
+      #contact {
+        background: var(--ink);
+        color: var(--paper);
+        max-width: 100%;
+        padding: 100px var(--gutter);
+      }
+      .contact-inner {
+        max-width: var(--max);
+        margin: 0 auto;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: center;
+      }
+      .contact-left h2 {
+        font-family: var(--serif);
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+        margin-bottom: 1rem;
+      }
+      .contact-left h2 em {
+        color: var(--accent);
+        font-style: italic;
+      }
+      .contact-left p {
+        font-size: 1rem;
+        color: #aaa;
+        line-height: 1.7;
+        font-weight: 300;
+        margin-bottom: 2rem;
+      }
+      .contact-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      .contact-link {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        font-size: 0.9rem;
+        color: #ccc;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .contact-link:hover {
+        color: var(--accent);
+      }
+      .contact-link-icon {
+        width: 36px;
+        height: 36px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+      }
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .contact-form input,
+      .contact-form textarea {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: var(--paper);
+        padding: 0.85rem 1rem;
+        font-family: var(--sans);
+        font-size: 0.9rem;
+        border-radius: 2px;
+        outline: none;
+        transition: border-color 0.2s;
+        resize: vertical;
+      }
+      .contact-form input::placeholder,
+      .contact-form textarea::placeholder {
+        color: #666;
+      }
+      .contact-form input:focus,
+      .contact-form textarea:focus {
+        border-color: var(--accent);
+      }
+      .contact-form textarea {
+        min-height: 120px;
+      }
+      .contact-form button {
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 0.85rem 2rem;
+        font-family: var(--sans);
+        font-size: 0.88rem;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        cursor: pointer;
+        border-radius: 2px;
+        transition:
+          opacity 0.2s,
+          transform 0.15s;
+      }
+      .contact-form button:hover {
+        opacity: 0.85;
+        transform: translateY(-1px);
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        background: #0a0a0a;
+        color: #555;
+        text-align: center;
+        padding: 2rem var(--gutter);
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+      }
+
+      /* ── FADE IN ── */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 860px) {
+        .about-grid,
+        .arch-grid,
+        .contact-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .skills-grid,
+        .blog-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .hero-stats {
+          display: none;
+        }
+        .nav-links {
+          display: none;
+        }
+        .case-card {
+          grid-template-columns: 1fr;
+        }
+        .case-num {
+          display: none;
+        }
+      }
+      @media (max-width: 540px) {
+        .skills-grid,
+        .blog-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <a href="#hero" class="nav-logo">Ripal Darji</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#case-studies">Case Studies</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#blog">Blog</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">Let's Talk</a>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-tag">Software Architect · Seattle, WA</div>
+      <h1 class="hero-name">Ripal<br /><em>Darji</em></h1>
+      <p class="hero-desc">
+        I design scalable distributed systems and architect cloud-native
+        solutions — bridging 10+ years of hands-on engineering into strategic
+        technical leadership.
+      </p>
+      <div class="hero-actions">
+        <a href="#case-studies" class="btn-primary">View Case Studies</a>
+        <a href="#contact" class="btn-secondary">Open to Opportunities</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div>
+          <div class="stat-num">AWS</div>
+          <div class="stat-label">Certified</div>
+        </div>
+        <div>
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Systems Designed</div>
+        </div>
+      </div>
+      <div class="hero-scroll">scroll</div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-header fade-in">
+        <span class="section-num">01</span>
+        <h2 class="section-title">About</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text fade-in">
+          <p>
+            I'm a <strong>Software Architect</strong> with 10+ years of
+            full-stack engineering experience, specializing in Java Spring Boot
+            microservices, React frontends, and AWS cloud infrastructure.
+          </p>
+          <p>
+            My approach combines deep hands-on technical expertise with
+            <strong>system-level thinking</strong> — designing architectures
+            that are maintainable, resilient, and built to scale. I've led teams
+            through monolith-to-microservices migrations, event-driven system
+            redesigns, and zero-downtime cloud migrations.
+          </p>
+          <p>
+            Currently based in <strong>Seattle, WA</strong>, I'm seeking
+            Architect roles where I can shape technical direction, mentor
+            engineering teams, and drive outcomes that matter.
+          </p>
+          <br />
+          <span class="location-badge">📍 Seattle, WA · Open to Work</span>
+        </div>
+        <div class="about-aside fade-in">
+          <div class="aside-card">
+            <h4>Focus Areas</h4>
+            <p>
+              Distributed Systems · Microservices Architecture · Cloud-Native
+              Design · API Design · Event-Driven Architecture · Technical
+              Leadership
+            </p>
+          </div>
+          <div class="aside-card">
+            <h4>Currently Learning</h4>
+            <p>
+              AWS Solutions Architect Professional · Domain-Driven Design ·
+              Platform Engineering · FinOps on AWS
+            </p>
+          </div>
+          <div class="aside-card">
+            <h4>Looking For</h4>
+            <p>
+              Software Architect · Solutions Architect · Principal Engineer
+              roles at companies building impactful products in Seattle.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="section-header fade-in">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Technical Skills</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card fade-in">
+          <div class="skill-icon">⚙️</div>
+          <h3>Backend Architecture</h3>
+          <div class="skill-tags">
+            <span class="tag accent">Java</span>
+            <span class="tag accent">Spring Boot</span>
+            <span class="tag">Microservices</span>
+            <span class="tag">REST APIs</span>
+            <span class="tag">GraphQL</span>
+            <span class="tag">Kafka</span>
+            <span class="tag">gRPC</span>
+            <span class="tag">Hibernate</span>
+          </div>
+        </div>
+        <div class="skill-card fade-in">
+          <div class="skill-icon">☁️</div>
+          <h3>Cloud & Infrastructure</h3>
+          <div class="skill-tags">
+            <span class="tag accent">AWS</span>
+            <span class="tag">ECS / EKS</span>
+            <span class="tag">Lambda</span>
+            <span class="tag">RDS / DynamoDB</span>
+            <span class="tag">S3 / CloudFront</span>
+            <span class="tag">SQS / SNS</span>
+            <span class="tag">API Gateway</span>
+            <span class="tag">Terraform</span>
+          </div>
+        </div>
+        <div class="skill-card fade-in">
+          <div class="skill-icon">⚛️</div>
+          <h3>Frontend Engineering</h3>
+          <div class="skill-tags">
+            <span class="tag accent">React</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Redux</span>
+            <span class="tag">Next.js</span>
+            <span class="tag">HTML / CSS</span>
+            <span class="tag">Jest</span>
+            <span class="tag">Webpack</span>
+          </div>
+        </div>
+        <div class="skill-card fade-in">
+          <div class="skill-icon">🗄️</div>
+          <h3>Data & Messaging</h3>
+          <div class="skill-tags">
+            <span class="tag accent">PostgreSQL</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">Redis</span>
+            <span class="tag">Elasticsearch</span>
+            <span class="tag">DynamoDB</span>
+            <span class="tag">Kafka</span>
+            <span class="tag">RabbitMQ</span>
+          </div>
+        </div>
+        <div class="skill-card fade-in">
+          <div class="skill-icon">🔄</div>
+          <h3>DevOps & CI/CD</h3>
+          <div class="skill-tags">
+            <span class="tag accent">Docker</span>
+            <span class="tag">Kubernetes</span>
+            <span class="tag">GitHub Actions</span>
+            <span class="tag">Jenkins</span>
+            <span class="tag">ArgoCD</span>
+            <span class="tag">Datadog</span>
+            <span class="tag">Prometheus</span>
+          </div>
+        </div>
+        <div class="skill-card fade-in">
+          <div class="skill-icon">🏛️</div>
+          <h3>Architecture Patterns</h3>
+          <div class="skill-tags">
+            <span class="tag accent">DDD</span>
+            <span class="tag">Event Sourcing</span>
+            <span class="tag">CQRS</span>
+            <span class="tag">Saga Pattern</span>
+            <span class="tag">Strangler Fig</span>
+            <span class="tag">Hexagonal</span>
+            <span class="tag">ADR</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE STUDIES -->
+    <section id="case-studies">
+      <div class="section-header fade-in">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Architecture Case Studies</h2>
+      </div>
+      <div class="cases-list">
+        <div class="case-card fade-in">
+          <div class="case-num">01</div>
+          <div class="case-body">
+            <div class="case-meta">Microservices Migration · AWS · Java</div>
+            <h3>Monolith to Microservices: E-Commerce Platform</h3>
+            <p>
+              Led the architectural redesign of a monolithic Java application
+              serving 500K+ daily users into 12 domain-aligned microservices
+              using the Strangler Fig pattern. Designed event-driven
+              communication via Kafka, implemented API Gateway routing, and
+              introduced circuit breakers using Resilience4j to improve fault
+              isolation.
+            </p>
+            <div class="case-outcomes">
+              <span class="outcome-badge">↑ 4× throughput</span>
+              <span class="outcome-badge">↓ 65% deployment time</span>
+              <span class="outcome-badge">99.98% uptime</span>
+              <span class="outcome-badge">Zero-downtime migration</span>
+            </div>
+          </div>
+          <div class="case-arrow">→</div>
+        </div>
+        <div class="case-card fade-in">
+          <div class="case-num">02</div>
+          <div class="case-body">
+            <div class="case-meta">
+              Event-Driven · AWS SQS/SNS · Spring Boot
+            </div>
+            <h3>Real-Time Notification System at Scale</h3>
+            <p>
+              Architected an event-driven notification pipeline handling 2M+
+              daily events across email, SMS, and push channels. Designed a
+              fan-out pattern using SNS + SQS, introduced idempotency keys to
+              prevent duplicate delivery, and built a React-based admin
+              dashboard for delivery monitoring.
+            </p>
+            <div class="case-outcomes">
+              <span class="outcome-badge">2M+ daily events</span>
+              <span class="outcome-badge">↓ 80% latency</span>
+              <span class="outcome-badge">Idempotent delivery</span>
+              <span class="outcome-badge">Multi-channel</span>
+            </div>
+          </div>
+          <div class="case-arrow">→</div>
+        </div>
+        <div class="case-card fade-in">
+          <div class="case-num">03</div>
+          <div class="case-body">
+            <div class="case-meta">CQRS · DynamoDB · React</div>
+            <h3>Multi-Tenant SaaS Platform Architecture</h3>
+            <p>
+              Designed a multi-tenant SaaS platform using CQRS and Event
+              Sourcing on AWS. Introduced tenant isolation at the data layer
+              using DynamoDB partition key strategies, designed a
+              shared-services layer for auth and billing, and built a React +
+              TypeScript frontend with role-based access controls.
+            </p>
+            <div class="case-outcomes">
+              <span class="outcome-badge">50+ tenants</span>
+              <span class="outcome-badge">Full data isolation</span>
+              <span class="outcome-badge">↓ 40% infra cost</span>
+              <span class="outcome-badge">RBAC</span>
+            </div>
+          </div>
+          <div class="case-arrow">→</div>
+        </div>
+        <div class="case-card fade-in">
+          <div class="case-num">04</div>
+          <div class="case-body">
+            <div class="case-meta">AWS Migration · EKS · Terraform</div>
+            <h3>On-Premise to AWS Cloud Migration</h3>
+            <p>
+              Planned and executed a full cloud migration of 8 legacy services
+              from on-premise to AWS EKS with Terraform-managed infrastructure.
+              Defined migration waves, introduced blue/green deployments via
+              ArgoCD, and established observability using Datadog APM and custom
+              dashboards.
+            </p>
+            <div class="case-outcomes">
+              <span class="outcome-badge">8 services migrated</span>
+              <span class="outcome-badge">↓ 35% infra cost</span>
+              <span class="outcome-badge">Blue/Green deploys</span>
+              <span class="outcome-badge">IaC with Terraform</span>
+            </div>
+          </div>
+          <div class="case-arrow">→</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE DIAGRAMS -->
+    <section id="architecture">
+      <div class="section-header fade-in">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Architecture Diagrams</h2>
+      </div>
+      <div class="arch-grid">
+        <div class="arch-card fade-in">
+          <div class="arch-diagram">
+            <!-- Microservices Diagram -->
+            <svg
+              viewBox="0 0 340 200"
+              xmlns="http://www.w3.org/2000/svg"
+              font-family="DM Mono, monospace"
+            >
+              <!-- API Gateway -->
+              <rect
+                x="120"
+                y="10"
+                width="100"
+                height="32"
+                rx="2"
+                fill="#1a6b4a"
+              />
+              <text
+                x="170"
+                y="31"
+                text-anchor="middle"
+                fill="white"
+                font-size="9"
+                font-weight="500"
+              >
+                API Gateway
+              </text>
+              <!-- Lines down -->
+              <line
+                x1="170"
+                y1="42"
+                x2="60"
+                y2="80"
+                stroke="#dddbd3"
+                stroke-width="1.5"
+              />
+              <line
+                x1="170"
+                y1="42"
+                x2="170"
+                y2="80"
+                stroke="#dddbd3"
+                stroke-width="1.5"
+              />
+              <line
+                x1="170"
+                y1="42"
+                x2="280"
+                y2="80"
+                stroke="#dddbd3"
+                stroke-width="1.5"
+              />
+              <!-- Services -->
+              <rect
+                x="10"
+                y="80"
+                width="100"
+                height="30"
+                rx="2"
+                fill="#f3f2ee"
+                stroke="#dddbd3"
+                stroke-width="1"
+              />
+              <text
+                x="60"
+                y="99"
+                text-anchor="middle"
+                fill="#444"
+                font-size="8"
+              >
+                User Service
+              </text>
+              <rect
+                x="120"
+                y="80"
+                width="100"
+                height="30"
+                rx="2"
+                fill="#f3f2ee"
+                stroke="#dddbd3"
+                stroke-width="1"
+              />
+              <text
+                x="170"
+                y="99"
+                text-anchor="middle"
+                fill="#444"
+                font-size="8"
+              >
+                Order Service
+              </text>
+              <rect
+                x="230"
+                y="80"
+                width="100"
+                height="30"
+                rx="2"
+                fill="#f3f2ee"
+                stroke="#dddbd3"
+                stroke-width="1"
+              />
+              <text
+                x="280"
+                y="99"
+                text-anchor="middle"
+                fill="#444"
+                font-size="8"
+              >
+                Payment Service
+              </text>
+              <!-- Kafka bus -->
+              <rect
+                x="60"
+                y="140"
+                width="220"
+                height="24"
+                rx="2"
+                fill="#fff3e8"
+                stroke="#c8873a"
+                stroke-width="1"
+              />
+              <text
+                x="170"
+                y="156"
+                text-anchor="middle"
+                fill="#c8873a"
+                font-size="8"
+                font-weight="500"
+              >
+                Kafka Event Bus
+              </text>
+              <line
+                x1="60"
+                y1="110"
+                x2="100"
+                y2="140"
+                stroke="#c8873a"
+                stroke-width="1"
+                stroke-dasharray="3,2"
+              />
+              <line
+                x1="170"
+                y1="110"
+                x2="170"
+                y2="140"
+                stroke="#c8873a"
+                stroke-width="1"
+                stroke-dasharray="3,2"
+              />
+              <line
+                x1="280"
+                y1="110"
+                x2="240"
+                y2="140"
+                stroke="#c8873a"
+                stroke-width="1"
+                stroke-dasharray="3,2"
+              />
+              <!-- DB icons -->
+              <ellipse
+                cx="60"
+                cy="185"
+                rx="24"
+                ry="8"
+                fill="#f3f2ee"
+                stroke="#dddbd3"
+                stroke-width="1"
+              />
+              <rect
+                x="36"
+                y="177"
+                width="48"
+                height="8"
+                fill="#f3f2ee"
+                stroke="#dddbd3"
+                stroke-width="1"
+              />
+              <text
+                x="60"
+                y="197"
+                text-anchor="middle"
+                fill="#888"
+                font-size="7"
+              >
+                RDS
+              </text>
+              <ellipse
+                cx="170"
+                cy="185"
+                rx="24"
+                ry="8"
+                fill="#f3f2ee"
+                stroke="#dddbd3"
+                stroke-width="1"
+              />
+              <rect
+                x="146"
+                y="177"
+                width="48"
+                height="8"
+                fill="#f3f2ee"
+                stroke="#dddbd3"
+                stroke-width="1"
+              />
+              <text
+                x="170"
+                y="197"
+                text-anchor="middle"
+                fill="#888"
+                font-size="7"
+              >
+                DynamoDB
+              </text>
+              <ellipse
+                cx="280"
+                cy="185"
+                rx="24"
+                ry="8"
+                fill="#f3f2ee"
+                stroke="#dddbd3"
+                stroke-width="1"
+              />
+              <rect
+                x="256"
+                y="177"
+                width="48"
+                height="8"
+                fill="#f3f2ee"
+                stroke="#dddbd3"
+                stroke-width="1"
+              />
+              <text
+                x="280"
+                y="197"
+                text-anchor="middle"
+                fill="#888"
+                font-size="7"
+              >
+                RDS
+              </text>
+            </svg>
+          </div>
+          <div class="arch-info">
+            <h3>Microservices on AWS</h3>
+            <p>
+              Domain-aligned services with event-driven communication via Kafka
+              and independent data stores per service.
+            </p>
+          </div>
+        </div>
+        <div class="arch-card fade-in">
+          <div class="arch-diagram">
+            <!-- CQRS Diagram -->
+            <svg
+              viewBox="0 0 340 200"
+              xmlns="http://www.w3.org/2000/svg"
+              font-family="DM Mono, monospace"
+            >
+              <!-- Client -->
+              <rect
+                x="120"
+                y="10"
+                width="100"
+                height="28"
+                rx="2"
+                fill="#1a6b4a"
+              />
+              <text
+                x="170"
+                y="28"
+                text-anchor="middle"
+                fill="white"
+                font-size="9"
+              >
+                React Client
+              </text>
+              <!-- Command / Query split -->
+              <line
+                x1="140"
+                y1="38"
+                x2="80"
+                y2="76"
+                stroke="#dddbd3"
+                stroke-width="1.5"
+              />
+              <line
+                x1="200"
+                y1="38"
+                x2="260"
+                y2="76"
+                stroke="#dddbd3"
+                stroke-width="1.5"
+              />
+              <rect
+                x="20"
+                y="76"
+                width="120"
+                height="28"
+                rx="2"
+                fill="#fff3e8"
+                stroke="#c8873a"
+                stroke-width="1"
+              />
+              <text
+                x="80"
+                y="94"
+                text-anchor="middle"
+                fill="#c8873a"
+                font-size="8"
+                font-weight="500"
+              >
+                Command Handler
+              </text>
+              <rect
+                x="200"
+                y="76"
+                width="120"
+                height="28"
+                rx="2"
+                fill="#e8f5ee"
+                stroke="#1a6b4a"
+                stroke-width="1"
+              />
+              <text
+                x="260"
+                y="94"
+                text-anchor="middle"
+                fill="#1a6b4a"
+                font-size="8"
+                font-weight="500"
+              >
+                Query Handler
+              </text>
+              <!-- Event store -->
+              <line
+                x1="80"
+                y1="104"
+                x2="80"
+                y2="130"
+                stroke="#c8873a"
+                stroke-width="1.5"
+              />
+              <rect
+                x="20"
+                y="130"
+                width="120"
+                height="28"
+                rx="2"
+                fill="#f3f2ee"
+                stroke="#dddbd3"
+              />
+              <text
+                x="80"
+                y="148"
+                text-anchor="middle"
+                fill="#444"
+                font-size="8"
+              >
+                Event Store
+              </text>
+              <!-- Read model -->
+              <line
+                x1="260"
+                y1="104"
+                x2="260"
+                y2="130"
+                stroke="#1a6b4a"
+                stroke-width="1.5"
+              />
+              <rect
+                x="200"
+                y="130"
+                width="120"
+                height="28"
+                rx="2"
+                fill="#f3f2ee"
+                stroke="#dddbd3"
+              />
+              <text
+                x="260"
+                y="148"
+                text-anchor="middle"
+                fill="#444"
+                font-size="8"
+              >
+                Read Model (Redis)
+              </text>
+              <!-- Projection arrow -->
+              <path
+                d="M140 144 Q170 155 200 144"
+                stroke="#888"
+                stroke-width="1"
+                fill="none"
+                stroke-dasharray="3,2"
+              />
+              <text
+                x="170"
+                y="172"
+                text-anchor="middle"
+                fill="#888"
+                font-size="7"
+              >
+                projection
+              </text>
+            </svg>
+          </div>
+          <div class="arch-info">
+            <h3>CQRS + Event Sourcing</h3>
+            <p>
+              Separate read/write models with an append-only event store and
+              Redis-backed read projections for fast queries.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-header fade-in">
+        <span class="section-num">05</span>
+        <h2 class="section-title">Experience</h2>
+      </div>
+      <div class="exp-timeline">
+        <div class="exp-item fade-in">
+          <div class="exp-header">
+            <div class="exp-title">
+              Senior Software Engineer → Lead Engineer
+            </div>
+            <div class="exp-period">2020 — 2024</div>
+          </div>
+          <div class="exp-company">
+            [ Your Most Recent Company ] · Seattle, WA
+          </div>
+          <ul class="exp-bullets">
+            <li>
+              Architected migration of monolithic Java application to 12
+              microservices, improving deployment frequency by 4×
+            </li>
+            <li>
+              Designed event-driven notification system handling 2M+ daily
+              events using AWS SQS/SNS
+            </li>
+            <li>
+              Led cross-functional team of 8 engineers, defined technical
+              roadmap and ADRs
+            </li>
+            <li>
+              Introduced Infrastructure as Code using Terraform, reducing
+              environment provisioning time by 70%
+            </li>
+            <li>
+              Established observability standards: Datadog APM, distributed
+              tracing, custom SLO dashboards
+            </li>
+          </ul>
+        </div>
+        <div class="exp-item fade-in">
+          <div class="exp-header">
+            <div class="exp-title">Full Stack Engineer</div>
+            <div class="exp-period">2017 — 2020</div>
+          </div>
+          <div class="exp-company">[ Previous Company ] · Remote / On-site</div>
+          <ul class="exp-bullets">
+            <li>
+              Built and maintained Java Spring Boot REST APIs serving 200K+
+              users
+            </li>
+            <li>
+              Developed React frontend with Redux state management and reusable
+              component library
+            </li>
+            <li>
+              Migrated on-premise services to AWS EC2/RDS, reducing operational
+              overhead by 40%
+            </li>
+            <li>
+              Implemented CI/CD pipelines with Jenkins and Docker, cutting
+              release cycles from weekly to daily
+            </li>
+          </ul>
+        </div>
+        <div class="exp-item fade-in">
+          <div class="exp-header">
+            <div class="exp-title">Software Engineer</div>
+            <div class="exp-period">2014 — 2017</div>
+          </div>
+          <div class="exp-company">[ Earlier Company ] · On-site</div>
+          <ul class="exp-bullets">
+            <li>
+              Developed Java EE backend services and JSP/jQuery frontends for
+              enterprise clients
+            </li>
+            <li>
+              Designed relational database schemas in MySQL, optimized slow
+              queries and introduced indexing strategies
+            </li>
+            <li>
+              Contributed to transition from waterfall to agile sprints,
+              improving team delivery predictability
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOG -->
+    <section id="blog">
+      <div class="section-header fade-in">
+        <span class="section-num">06</span>
+        <h2 class="section-title">Thought Leadership</h2>
+      </div>
+      <div class="blog-grid">
+        <div class="blog-card fade-in">
+          <div class="blog-tag">Architecture · Microservices</div>
+          <h3>When NOT to Use Microservices</h3>
+          <p>
+            A practical framework for evaluating whether microservices will help
+            or hurt your team — drawing from real migration experience.
+          </p>
+          <div class="blog-meta">Coming Soon · Medium</div>
+        </div>
+        <div class="blog-card fade-in">
+          <div class="blog-tag">AWS · Event-Driven</div>
+          <h3>Building Reliable Event Pipelines on AWS</h3>
+          <p>
+            Deep dive into idempotency, dead-letter queues, and retry strategies
+            using SQS, SNS, and Lambda.
+          </p>
+          <div class="blog-meta">Coming Soon · LinkedIn</div>
+        </div>
+        <div class="blog-card fade-in">
+          <div class="blog-tag">System Design · Interview</div>
+          <h3>How I Approach System Design Interviews</h3>
+          <p>
+            My framework for tackling ambiguous system design questions — from
+            requirements gathering to trade-off articulation.
+          </p>
+          <div class="blog-meta">Coming Soon · Dev.to</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="contact-inner">
+        <div class="contact-grid">
+          <div class="contact-left fade-in">
+            <h2>Let's build something <em>great</em> together.</h2>
+            <p>
+              I'm actively exploring Software Architect and Solutions Architect
+              opportunities in Seattle. If you're building something ambitious
+              and need someone who can both design systems and lead engineers —
+              let's talk.
+            </p>
+            <div class="contact-links">
+              <a
+                href="https://linkedin.com/in/ripaldarji"
+                class="contact-link"
+                target="_blank"
+              >
+                <span class="contact-link-icon">in</span>
+                linkedin.com/in/ripaldarji
+              </a>
+              <a
+                href="https://github.com/riipal"
+                class="contact-link"
+                target="_blank"
+              >
+                <span class="contact-link-icon">gh</span>
+                github.com/riipal
+              </a>
+              <a href="mailto:ripal.darji@email.com" class="contact-link">
+                <span class="contact-link-icon">@</span>
+                ripaldarji16@gmail.com
+              </a>
+            </div>
+          </div>
+          <div class="fade-in">
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+              <input type="text" placeholder="Your Name" required />
+              <input type="email" placeholder="Your Email" required />
+              <input type="text" placeholder="Company / Role" />
+              <textarea
+                placeholder="Tell me about the opportunity..."
+              ></textarea>
+              <button type="submit">Send Message →</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>
+        © 2024 Ripal Darji · Software Architect · Seattle, WA · Built with
+        GitHub Pages
+      </p>
+    </footer>
+
+    <script>
+      // Intersection Observer for fade-in
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => entry.target.classList.add("visible"), i * 80);
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".fade-in")
+        .forEach((el) => observer.observe(el));
+
+      // Smooth active nav
+      const sections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll(".nav-links a");
+      window.addEventListener("scroll", () => {
+        let current = "";
+        sections.forEach((s) => {
+          if (window.scrollY >= s.offsetTop - 80) current = s.id;
+        });
+        navLinks.forEach((a) => {
+          a.style.color =
+            a.getAttribute("href") === "#" + current ? "var(--accent)" : "";
+        });
+      });
+
+      function handleSubmit(e) {
+        e.preventDefault();
+        const btn = e.target.querySelector("button");
+        btn.textContent = "Message Sent ✓";
+        btn.style.background = "#1a6b4a";
+        setTimeout(() => {
+          btn.textContent = "Send Message →";
+          btn.style.background = "";
+        }, 3000);
+      }
+    </script>
+  </body>
 </html>
