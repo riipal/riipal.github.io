@@ -1186,417 +1186,590 @@
         <h2 class="section-title">Architecture Diagrams</h2>
       </div>
       <div class="arch-grid">
+        <!-- DIAGRAM 1: Banking Microservices (Strangler Fig) -->
         <div class="arch-card fade-in">
           <div class="arch-diagram">
-            <!-- Microservices Diagram -->
             <svg
-              viewBox="0 0 340 200"
+              viewBox="0 0 360 230"
               xmlns="http://www.w3.org/2000/svg"
               font-family="DM Mono, monospace"
+              font-size="8"
             >
-              <!-- API Gateway -->
+              <!-- React Client -->
               <rect
-                x="120"
-                y="10"
+                x="130"
+                y="6"
                 width="100"
-                height="32"
+                height="26"
                 rx="2"
                 fill="#1a6b4a"
               />
               <text
-                x="170"
-                y="31"
+                x="180"
+                y="23"
                 text-anchor="middle"
                 fill="white"
-                font-size="9"
+                font-size="8.5"
                 font-weight="500"
               >
-                API Gateway
+                React Client
               </text>
-              <!-- Lines down -->
+
+              <!-- Arrow down -->
               <line
-                x1="170"
-                y1="42"
-                x2="60"
-                y2="80"
+                x1="180"
+                y1="32"
+                x2="180"
+                y2="48"
                 stroke="#dddbd3"
                 stroke-width="1.5"
               />
+              <polygon points="176,45 184,45 180,52" fill="#dddbd3" />
+
+              <!-- API Gateway -->
+              <rect x="110" y="52" width="140" height="26" rx="2" fill="#111" />
+              <text
+                x="180"
+                y="69"
+                text-anchor="middle"
+                fill="white"
+                font-size="8.5"
+                font-weight="500"
+              >
+                API Gateway + Auth
+              </text>
+
+              <!-- Fan out lines -->
               <line
-                x1="170"
-                y1="42"
-                x2="170"
-                y2="80"
+                x1="130"
+                y1="78"
+                x2="50"
+                y2="108"
                 stroke="#dddbd3"
-                stroke-width="1.5"
+                stroke-width="1.2"
               />
               <line
-                x1="170"
-                y1="42"
-                x2="280"
-                y2="80"
+                x1="165"
+                y1="78"
+                x2="130"
+                y2="108"
                 stroke="#dddbd3"
-                stroke-width="1.5"
+                stroke-width="1.2"
               />
-              <!-- Services -->
+              <line
+                x1="195"
+                y1="78"
+                x2="220"
+                y2="108"
+                stroke="#dddbd3"
+                stroke-width="1.2"
+              />
+              <line
+                x1="230"
+                y1="78"
+                x2="310"
+                y2="108"
+                stroke="#dddbd3"
+                stroke-width="1.2"
+              />
+
+              <!-- Services row -->
               <rect
-                x="10"
-                y="80"
-                width="100"
-                height="30"
+                x="4"
+                y="108"
+                width="86"
+                height="26"
                 rx="2"
                 fill="#f3f2ee"
-                stroke="#dddbd3"
+                stroke="#1a6b4a"
                 stroke-width="1"
               />
               <text
-                x="60"
-                y="99"
+                x="47"
+                y="124"
                 text-anchor="middle"
-                fill="#444"
-                font-size="8"
+                fill="#1a6b4a"
+                font-weight="500"
               >
-                User Service
+                Account Svc
               </text>
+
               <rect
-                x="120"
-                y="80"
-                width="100"
-                height="30"
+                x="96"
+                y="108"
+                width="82"
+                height="26"
                 rx="2"
                 fill="#f3f2ee"
                 stroke="#dddbd3"
-                stroke-width="1"
               />
-              <text
-                x="170"
-                y="99"
-                text-anchor="middle"
-                fill="#444"
-                font-size="8"
-              >
-                Order Service
+              <text x="137" y="124" text-anchor="middle" fill="#444">
+                Transaction Svc
               </text>
+
               <rect
-                x="230"
-                y="80"
-                width="100"
-                height="30"
+                x="184"
+                y="108"
+                width="76"
+                height="26"
                 rx="2"
                 fill="#f3f2ee"
                 stroke="#dddbd3"
-                stroke-width="1"
               />
-              <text
-                x="280"
-                y="99"
-                text-anchor="middle"
-                fill="#444"
-                font-size="8"
-              >
-                Payment Service
+              <text x="222" y="124" text-anchor="middle" fill="#444">
+                Payment Svc
               </text>
-              <!-- Kafka bus -->
+
               <rect
-                x="60"
-                y="140"
-                width="220"
+                x="266"
+                y="108"
+                width="86"
+                height="26"
+                rx="2"
+                fill="#f3f2ee"
+                stroke="#dddbd3"
+              />
+              <text x="309" y="124" text-anchor="middle" fill="#444">
+                Notification Svc
+              </text>
+
+              <!-- Circuit breaker indicator -->
+              <text
+                x="180"
+                y="148"
+                text-anchor="middle"
+                fill="#c8873a"
+                font-size="7"
+              >
+                ⚡ circuit breakers · bulkheads · retries
+              </text>
+
+              <!-- Event bus -->
+              <rect
+                x="20"
+                y="158"
+                width="320"
                 height="24"
                 rx="2"
                 fill="#fff3e8"
                 stroke="#c8873a"
-                stroke-width="1"
+                stroke-width="1.2"
               />
               <text
-                x="170"
-                y="156"
+                x="180"
+                y="174"
                 text-anchor="middle"
                 fill="#c8873a"
-                font-size="8"
                 font-weight="500"
+                font-size="8.5"
               >
-                Kafka Event Bus
+                Event Bus (Kafka / SQS+SNS)
               </text>
+
+              <!-- Dashed lines to event bus -->
               <line
-                x1="60"
-                y1="110"
-                x2="100"
-                y2="140"
-                stroke="#c8873a"
-                stroke-width="1"
-                stroke-dasharray="3,2"
-              />
-              <line
-                x1="170"
-                y1="110"
-                x2="170"
-                y2="140"
-                stroke="#c8873a"
-                stroke-width="1"
-                stroke-dasharray="3,2"
-              />
-              <line
-                x1="280"
-                y1="110"
-                x2="240"
-                y2="140"
-                stroke="#c8873a"
-                stroke-width="1"
-                stroke-dasharray="3,2"
-              />
-              <!-- DB icons -->
-              <ellipse
-                cx="60"
-                cy="185"
-                rx="24"
-                ry="8"
-                fill="#f3f2ee"
-                stroke="#dddbd3"
-                stroke-width="1"
-              />
-              <rect
-                x="36"
-                y="177"
-                width="48"
-                height="8"
-                fill="#f3f2ee"
-                stroke="#dddbd3"
-                stroke-width="1"
-              />
-              <text
-                x="60"
-                y="197"
-                text-anchor="middle"
-                fill="#888"
-                font-size="7"
-              >
-                RDS
-              </text>
-              <ellipse
-                cx="170"
-                cy="185"
-                rx="24"
-                ry="8"
-                fill="#f3f2ee"
-                stroke="#dddbd3"
-                stroke-width="1"
-              />
-              <rect
-                x="146"
-                y="177"
-                width="48"
-                height="8"
-                fill="#f3f2ee"
-                stroke="#dddbd3"
-                stroke-width="1"
-              />
-              <text
-                x="170"
-                y="197"
-                text-anchor="middle"
-                fill="#888"
-                font-size="7"
-              >
-                DynamoDB
-              </text>
-              <ellipse
-                cx="280"
-                cy="185"
-                rx="24"
-                ry="8"
-                fill="#f3f2ee"
-                stroke="#dddbd3"
-                stroke-width="1"
-              />
-              <rect
-                x="256"
-                y="177"
-                width="48"
-                height="8"
-                fill="#f3f2ee"
-                stroke="#dddbd3"
-                stroke-width="1"
-              />
-              <text
-                x="280"
-                y="197"
-                text-anchor="middle"
-                fill="#888"
-                font-size="7"
-              >
-                RDS
-              </text>
-            </svg>
-          </div>
-          <div class="arch-info">
-            <h3>Microservices on AWS</h3>
-            <p>
-              Domain-aligned services with event-driven communication via Kafka
-              and independent data stores per service.
-            </p>
-          </div>
-        </div>
-        <div class="arch-card fade-in">
-          <div class="arch-diagram">
-            <!-- CQRS Diagram -->
-            <svg
-              viewBox="0 0 340 200"
-              xmlns="http://www.w3.org/2000/svg"
-              font-family="DM Mono, monospace"
-            >
-              <!-- Client -->
-              <rect
-                x="120"
-                y="10"
-                width="100"
-                height="28"
-                rx="2"
-                fill="#1a6b4a"
-              />
-              <text
-                x="170"
-                y="28"
-                text-anchor="middle"
-                fill="white"
-                font-size="9"
-              >
-                React Client
-              </text>
-              <!-- Command / Query split -->
-              <line
-                x1="140"
-                y1="38"
+                x1="47"
+                y1="134"
                 x2="80"
-                y2="76"
-                stroke="#dddbd3"
-                stroke-width="1.5"
-              />
-              <line
-                x1="200"
-                y1="38"
-                x2="260"
-                y2="76"
-                stroke="#dddbd3"
-                stroke-width="1.5"
-              />
-              <rect
-                x="20"
-                y="76"
-                width="120"
-                height="28"
-                rx="2"
-                fill="#fff3e8"
+                y2="158"
                 stroke="#c8873a"
                 stroke-width="1"
+                stroke-dasharray="3,2"
               />
-              <text
-                x="80"
-                y="94"
-                text-anchor="middle"
-                fill="#c8873a"
-                font-size="8"
-                font-weight="500"
-              >
-                Command Handler
-              </text>
+              <line
+                x1="137"
+                y1="134"
+                x2="150"
+                y2="158"
+                stroke="#c8873a"
+                stroke-width="1"
+                stroke-dasharray="3,2"
+              />
+              <line
+                x1="222"
+                y1="134"
+                x2="210"
+                y2="158"
+                stroke="#c8873a"
+                stroke-width="1"
+                stroke-dasharray="3,2"
+              />
+              <line
+                x1="309"
+                y1="134"
+                x2="280"
+                y2="158"
+                stroke="#c8873a"
+                stroke-width="1"
+                stroke-dasharray="3,2"
+              />
+
+              <!-- Independent DBs -->
               <rect
-                x="200"
-                y="76"
-                width="120"
-                height="28"
+                x="4"
+                y="194"
+                width="76"
+                height="18"
                 rx="2"
                 fill="#e8f5ee"
                 stroke="#1a6b4a"
                 stroke-width="1"
               />
-              <text
-                x="260"
-                y="94"
-                text-anchor="middle"
+              <text x="42" y="206" text-anchor="middle" fill="#1a6b4a">
+                PostgreSQL
+              </text>
+
+              <rect
+                x="96"
+                y="194"
+                width="72"
+                height="18"
+                rx="2"
+                fill="#f3f2ee"
+                stroke="#dddbd3"
+              />
+              <text x="132" y="206" text-anchor="middle" fill="#888">
+                PostgreSQL
+              </text>
+
+              <rect
+                x="184"
+                y="194"
+                width="66"
+                height="18"
+                rx="2"
+                fill="#f3f2ee"
+                stroke="#dddbd3"
+              />
+              <text x="217" y="206" text-anchor="middle" fill="#888">
+                PostgreSQL
+              </text>
+
+              <rect
+                x="266"
+                y="194"
+                width="76"
+                height="18"
+                rx="2"
+                fill="#f3f2ee"
+                stroke="#dddbd3"
+              />
+              <text x="304" y="206" text-anchor="middle" fill="#888">
+                Redis
+              </text>
+
+              <line
+                x1="47"
+                y1="182"
+                x2="42"
+                y2="194"
+                stroke="#dddbd3"
+                stroke-width="1"
+              />
+              <line
+                x1="137"
+                y1="182"
+                x2="132"
+                y2="194"
+                stroke="#dddbd3"
+                stroke-width="1"
+              />
+              <line
+                x1="222"
+                y1="182"
+                x2="217"
+                y2="194"
+                stroke="#dddbd3"
+                stroke-width="1"
+              />
+              <line
+                x1="309"
+                y1="182"
+                x2="304"
+                y2="194"
+                stroke="#dddbd3"
+                stroke-width="1"
+              />
+            </svg>
+          </div>
+          <div class="arch-info">
+            <h3>Retail Banking Microservices</h3>
+            <p>
+              Domain-aligned services with independent data stores, event-driven
+              communication via Kafka, and circuit breakers for banking-grade
+              fault isolation.
+            </p>
+          </div>
+        </div>
+
+        <!-- DIAGRAM 2: DAM Platform Architecture (Pica9) -->
+        <div class="arch-card fade-in">
+          <div class="arch-diagram">
+            <svg
+              viewBox="0 0 360 230"
+              xmlns="http://www.w3.org/2000/svg"
+              font-family="DM Mono, monospace"
+              font-size="8"
+            >
+              <!-- User / Browser -->
+              <rect
+                x="130"
+                y="6"
+                width="100"
+                height="26"
+                rx="2"
                 fill="#1a6b4a"
-                font-size="8"
+              />
+              <text
+                x="180"
+                y="23"
+                text-anchor="middle"
+                fill="white"
+                font-size="8.5"
                 font-weight="500"
               >
-                Query Handler
+                React v19 Client
               </text>
-              <!-- Event store -->
+
               <line
-                x1="80"
-                y1="104"
-                x2="80"
-                y2="130"
-                stroke="#c8873a"
+                x1="180"
+                y1="32"
+                x2="180"
+                y2="48"
+                stroke="#dddbd3"
                 stroke-width="1.5"
               />
+              <polygon points="176,45 184,45 180,52" fill="#dddbd3" />
+
+              <!-- CDN -->
+              <rect
+                x="80"
+                y="52"
+                width="200"
+                height="24"
+                rx="2"
+                fill="#f3f2ee"
+                stroke="#dddbd3"
+              />
+              <text
+                x="180"
+                y="68"
+                text-anchor="middle"
+                fill="#444"
+                font-weight="500"
+              >
+                AWS CloudFront CDN
+              </text>
+
+              <!-- Two paths -->
+              <line
+                x1="130"
+                y1="76"
+                x2="80"
+                y2="100"
+                stroke="#dddbd3"
+                stroke-width="1.2"
+              />
+              <line
+                x1="230"
+                y1="76"
+                x2="280"
+                y2="100"
+                stroke="#dddbd3"
+                stroke-width="1.2"
+              />
+
+              <!-- S3 Static -->
               <rect
                 x="20"
-                y="130"
+                y="100"
                 width="120"
-                height="28"
+                height="24"
                 rx="2"
                 fill="#f3f2ee"
                 stroke="#dddbd3"
               />
-              <text
-                x="80"
-                y="148"
-                text-anchor="middle"
-                fill="#444"
-                font-size="8"
-              >
-                Event Store
+              <text x="80" y="116" text-anchor="middle" fill="#444">
+                S3 Static Assets
               </text>
-              <!-- Read model -->
-              <line
-                x1="260"
-                y1="104"
-                x2="260"
-                y2="130"
-                stroke="#1a6b4a"
-                stroke-width="1.5"
+
+              <!-- API Gateway -->
+              <rect
+                x="220"
+                y="100"
+                width="120"
+                height="24"
+                rx="2"
+                fill="#111"
               />
+              <text
+                x="280"
+                y="116"
+                text-anchor="middle"
+                fill="white"
+                font-weight="500"
+              >
+                API Gateway
+              </text>
+
+              <line
+                x1="280"
+                y1="124"
+                x2="280"
+                y2="140"
+                stroke="#dddbd3"
+                stroke-width="1.2"
+              />
+
+              <!-- Spring Boot -->
               <rect
                 x="200"
-                y="130"
-                width="120"
-                height="28"
+                y="140"
+                width="160"
+                height="24"
                 rx="2"
-                fill="#f3f2ee"
-                stroke="#dddbd3"
+                fill="#e8f5ee"
+                stroke="#1a6b4a"
+                stroke-width="1.2"
               />
               <text
-                x="260"
-                y="148"
+                x="280"
+                y="156"
                 text-anchor="middle"
-                fill="#444"
-                font-size="8"
+                fill="#1a6b4a"
+                font-weight="500"
               >
-                Read Model (Redis)
+                Spring Boot Services
               </text>
-              <!-- Projection arrow -->
-              <path
-                d="M140 144 Q170 155 200 144"
-                stroke="#888"
-                stroke-width="1"
-                fill="none"
-                stroke-dasharray="3,2"
-              />
+
+              <!-- RBAC + Auth label -->
               <text
-                x="170"
+                x="280"
                 y="172"
                 text-anchor="middle"
                 fill="#888"
                 font-size="7"
               >
-                projection
+                OAuth 2.0 · RBAC · JWT
               </text>
+
+              <!-- Data stores -->
+              <line
+                x1="220"
+                y1="164"
+                x2="130"
+                y2="185"
+                stroke="#dddbd3"
+                stroke-width="1"
+              />
+              <line
+                x1="260"
+                y1="164"
+                x2="220"
+                y2="185"
+                stroke="#dddbd3"
+                stroke-width="1"
+              />
+              <line
+                x1="300"
+                y1="164"
+                x2="310"
+                y2="185"
+                stroke="#dddbd3"
+                stroke-width="1"
+              />
+
+              <rect
+                x="70"
+                y="185"
+                width="80"
+                height="20"
+                rx="2"
+                fill="#f3f2ee"
+                stroke="#dddbd3"
+              />
+              <text x="110" y="199" text-anchor="middle" fill="#888">
+                PostgreSQL
+              </text>
+
+              <rect
+                x="160"
+                y="185"
+                width="70"
+                height="20"
+                rx="2"
+                fill="#f3f2ee"
+                stroke="#dddbd3"
+              />
+              <text x="195" y="199" text-anchor="middle" fill="#888">
+                Redis
+              </text>
+
+              <rect
+                x="274"
+                y="185"
+                width="72"
+                height="20"
+                rx="2"
+                fill="#e8f5ee"
+                stroke="#1a6b4a"
+                stroke-width="1"
+              />
+              <text x="310" y="199" text-anchor="middle" fill="#1a6b4a">
+                AWS S3
+              </text>
+
+              <!-- Upload pipeline label -->
+              <text
+                x="80"
+                y="218"
+                text-anchor="middle"
+                fill="#c8873a"
+                font-size="7"
+              >
+                ↑ Asset Upload Pipeline
+              </text>
+              <line
+                x1="80"
+                y1="100"
+                x2="80"
+                y2="185"
+                stroke="#c8873a"
+                stroke-width="1"
+                stroke-dasharray="3,2"
+              />
+
+              <!-- ECR/Docker note -->
+              <rect
+                x="4"
+                y="140"
+                width="110"
+                height="20"
+                rx="2"
+                fill="#fff3e8"
+                stroke="#c8873a"
+                stroke-width="1"
+              />
+              <text x="59" y="154" text-anchor="middle" fill="#c8873a">
+                Docker · AWS ECR
+              </text>
+              <line
+                x1="114"
+                y1="150"
+                x2="200"
+                y2="152"
+                stroke="#c8873a"
+                stroke-width="1"
+                stroke-dasharray="3,2"
+              />
             </svg>
           </div>
           <div class="arch-info">
-            <h3>CQRS + Event Sourcing</h3>
+            <h3>Digital Asset Management Platform</h3>
             <p>
-              Separate read/write models with an append-only event store and
-              Redis-backed read projections for fast queries.
+              Cloud-native DAM platform at Pica9 — React v19 frontend served via
+              CloudFront CDN, Spring Boot APIs with RBAC, and S3 asset pipeline
+              with cursor-based pagination.
             </p>
           </div>
         </div>
