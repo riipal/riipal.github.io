@@ -1,0 +1,1051 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meridian Financial Case Study — Ripal Darji</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --ink: #111111;
+        --ink-2: #444444;
+        --ink-3: #888888;
+        --paper: #fafaf8;
+        --paper-2: #f3f2ee;
+        --paper-3: #e8e6df;
+        --accent: #1a6b4a;
+        --accent-light: #e8f5ee;
+        --amber: #c8873a;
+        --amber-light: #fff3e8;
+        --rule: #dddbd3;
+        --serif: "DM Serif Display", Georgia, serif;
+        --sans: "DM Sans", sans-serif;
+        --mono: "DM Mono", monospace;
+        --max: 860px;
+        --gutter: clamp(1.5rem, 5vw, 4rem);
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--sans);
+        background: var(--paper);
+        color: var(--ink);
+        font-size: 16px;
+        line-height: 1.7;
+        overflow-x: hidden;
+      }
+
+      /* ── NAV ── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: rgba(250, 250, 248, 0.92);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--rule);
+        padding: 0 var(--gutter);
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .nav-logo {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .nav-back {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        color: var(--ink-2);
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        transition: color 0.2s;
+      }
+      .nav-back:hover {
+        color: var(--accent);
+      }
+
+      /* ── HERO ── */
+      .cs-hero {
+        background: var(--ink);
+        padding: 120px var(--gutter) 80px;
+        position: relative;
+        overflow: hidden;
+      }
+      .cs-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.015) 0px,
+          rgba(255, 255, 255, 0.015) 1px,
+          transparent 1px,
+          transparent 80px
+        );
+      }
+      .cs-hero-inner {
+        max-width: var(--max);
+        margin: 0 auto;
+        position: relative;
+      }
+      .cs-tag {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .cs-tag::before {
+        content: "";
+        display: inline-block;
+        width: 20px;
+        height: 1px;
+        background: var(--accent);
+      }
+      .cs-title {
+        font-family: var(--serif);
+        font-size: clamp(2.2rem, 5vw, 3.8rem);
+        color: white;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        margin-bottom: 1rem;
+      }
+      .cs-title em {
+        color: var(--accent);
+        font-style: italic;
+      }
+      .cs-subtitle {
+        font-size: 1.1rem;
+        color: #aaa;
+        font-weight: 300;
+        margin-bottom: 2.5rem;
+        max-width: 600px;
+      }
+      .cs-meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .cs-meta-item label {
+        display: block;
+        font-family: var(--mono);
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #666;
+        margin-bottom: 0.3rem;
+      }
+      .cs-meta-item span {
+        font-size: 0.88rem;
+        color: #ccc;
+        font-weight: 500;
+      }
+
+      /* ── METRICS BANNER ── */
+      .metrics-banner {
+        background: var(--accent);
+        padding: 0;
+      }
+      .metrics-inner {
+        max-width: var(--max);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .metric-item {
+        padding: 2rem;
+        text-align: center;
+        border-right: 1px solid rgba(255, 255, 255, 0.15);
+      }
+      .metric-item:last-child {
+        border-right: none;
+      }
+      .metric-num {
+        font-family: var(--serif);
+        font-size: 2.8rem;
+        color: white;
+        line-height: 1;
+        margin-bottom: 0.3rem;
+      }
+      .metric-label {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        color: rgba(255, 255, 255, 0.7);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      /* ── CONTENT ── */
+      .cs-content {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 80px var(--gutter);
+      }
+
+      /* ── SECTION ── */
+      .cs-section {
+        margin-bottom: 5rem;
+      }
+      .cs-section-label {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        margin-bottom: 0.6rem;
+      }
+      .cs-section h2 {
+        font-family: var(--serif);
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+        letter-spacing: -0.02em;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--rule);
+      }
+      .cs-section h3 {
+        font-family: var(--serif);
+        font-size: 1.2rem;
+        color: var(--ink);
+        margin: 2rem 0 0.8rem;
+        letter-spacing: -0.01em;
+      }
+      .cs-section p {
+        font-size: 1rem;
+        color: var(--ink-2);
+        line-height: 1.8;
+        margin-bottom: 1rem;
+        font-weight: 300;
+      }
+      .cs-section p strong {
+        color: var(--ink);
+        font-weight: 600;
+      }
+
+      /* ── BULLETS ── */
+      .cs-list {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0;
+      }
+      .cs-list li {
+        font-size: 0.95rem;
+        color: var(--ink-2);
+        padding: 0.45rem 0 0.45rem 1.4rem;
+        position: relative;
+        line-height: 1.7;
+        border-bottom: 1px solid var(--rule);
+      }
+      .cs-list li:last-child {
+        border-bottom: none;
+      }
+      .cs-list li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+        font-size: 0.8rem;
+        top: 0.55rem;
+      }
+      .cs-list li strong {
+        color: var(--ink);
+        font-weight: 600;
+      }
+
+      /* ── TECH TAGS ── */
+      .tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin: 1rem 0;
+      }
+      .tech-tag {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        background: var(--paper-2);
+        border: 1px solid var(--rule);
+        color: var(--ink-2);
+        padding: 0.25rem 0.7rem;
+        border-radius: 2px;
+      }
+      .tech-tag.accent {
+        background: var(--accent-light);
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      /* ── CALLOUT BOX ── */
+      .callout {
+        background: var(--paper-2);
+        border-left: 3px solid var(--accent);
+        padding: 1.2rem 1.5rem;
+        margin: 1.5rem 0;
+        border-radius: 0 3px 3px 0;
+      }
+      .callout p {
+        margin: 0;
+        font-size: 0.95rem;
+      }
+
+      .callout-amber {
+        background: var(--amber-light);
+        border-left-color: var(--amber);
+      }
+
+      /* ── TRADE-OFF TABLE ── */
+      .tradeoff-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+      }
+      .tradeoff-table th {
+        background: var(--ink);
+        color: white;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 0.7rem 1rem;
+        text-align: left;
+        font-weight: 500;
+      }
+      .tradeoff-table td {
+        padding: 0.8rem 1rem;
+        font-size: 0.88rem;
+        color: var(--ink-2);
+        border-bottom: 1px solid var(--rule);
+        vertical-align: top;
+        line-height: 1.6;
+      }
+      .tradeoff-table tr:last-child td {
+        border-bottom: none;
+      }
+      .tradeoff-table td:first-child {
+        font-weight: 600;
+        color: var(--ink);
+        background: var(--paper-2);
+        font-size: 0.85rem;
+        white-space: nowrap;
+      }
+      .tradeoff-table tr:hover td {
+        background: var(--accent-light);
+      }
+      .tradeoff-table tr:hover td:first-child {
+        background: var(--accent-light);
+      }
+
+      /* ── PHASE STEPS ── */
+      .phases {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .phase-step {
+        display: grid;
+        grid-template-columns: 48px 1fr;
+        gap: 1.5rem;
+        padding-bottom: 2.5rem;
+        position: relative;
+      }
+      .phase-step::after {
+        content: "";
+        position: absolute;
+        left: 23px;
+        top: 44px;
+        bottom: 0;
+        width: 1px;
+        background: var(--rule);
+      }
+      .phase-step:last-child::after {
+        display: none;
+      }
+      .phase-dot {
+        width: 48px;
+        height: 48px;
+        background: var(--accent);
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--serif);
+        font-size: 1.2rem;
+        color: white;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+      }
+      .phase-body h3 {
+        font-family: var(--serif);
+        font-size: 1.15rem;
+        margin: 0.6rem 0 0.5rem;
+      }
+      .phase-body p {
+        font-size: 0.92rem;
+        color: var(--ink-2);
+        line-height: 1.7;
+        margin-bottom: 0.5rem;
+        font-weight: 300;
+      }
+
+      /* ── OUTCOME BADGES ── */
+      .outcome-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin: 1.5rem 0;
+      }
+      .outcome-card {
+        background: var(--paper-2);
+        border: 1px solid var(--rule);
+        border-radius: 3px;
+        padding: 1.2rem;
+        transition: border-color 0.2s;
+      }
+      .outcome-card:hover {
+        border-color: var(--accent);
+      }
+      .outcome-card .num {
+        font-family: var(--serif);
+        font-size: 2rem;
+        color: var(--accent);
+        line-height: 1;
+        margin-bottom: 0.3rem;
+      }
+      .outcome-card .desc {
+        font-size: 0.82rem;
+        color: var(--ink-2);
+        line-height: 1.5;
+      }
+      .outcome-card .desc strong {
+        color: var(--ink);
+      }
+
+      /* ── REFLECTION BOX ── */
+      .reflection {
+        background: var(--ink);
+        color: white;
+        padding: 2.5rem;
+        border-radius: 3px;
+        margin: 2rem 0;
+      }
+      .reflection h3 {
+        font-family: var(--serif);
+        font-size: 1.3rem;
+        color: var(--accent);
+        margin-bottom: 1rem;
+      }
+      .reflection ul {
+        list-style: none;
+        padding: 0;
+      }
+      .reflection ul li {
+        font-size: 0.92rem;
+        color: #ccc;
+        padding: 0.5rem 0 0.5rem 1.4rem;
+        position: relative;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        line-height: 1.6;
+      }
+      .reflection ul li:last-child {
+        border-bottom: none;
+      }
+      .reflection ul li::before {
+        content: "↺";
+        position: absolute;
+        left: 0;
+        color: var(--amber);
+      }
+
+      /* ── BACK LINK ── */
+      .cs-footer {
+        background: var(--paper-2);
+        border-top: 1px solid var(--rule);
+        padding: 3rem var(--gutter);
+        text-align: center;
+      }
+      .cs-footer p {
+        font-size: 0.88rem;
+        color: var(--ink-3);
+        margin-bottom: 1.5rem;
+      }
+      .btn-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--ink);
+        color: white;
+        padding: 0.75rem 1.8rem;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 500;
+        border-radius: 2px;
+        letter-spacing: 0.04em;
+        transition: background 0.2s;
+      }
+      .btn-back:hover {
+        background: var(--accent);
+      }
+
+      /* ── FADE IN ── */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(16px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      @media (max-width: 600px) {
+        .metrics-inner {
+          grid-template-columns: 1fr;
+        }
+        .metric-item {
+          border-right: none;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .outcome-grid {
+          grid-template-columns: 1fr;
+        }
+        .tradeoff-table td:first-child {
+          white-space: normal;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <a href="../index.html" class="nav-logo">Ripal Darji</a>
+      <a href="../index.html#case-studies" class="nav-back"
+        >← Back to Portfolio</a
+      >
+    </nav>
+
+    <!-- HERO -->
+    <div class="cs-hero">
+      <div class="cs-hero-inner">
+        <div class="cs-tag">
+          Architecture Case Study · FinTech · Distributed Systems
+        </div>
+        <h1 class="cs-title">
+          Meridian Financial:<br /><em>Retail Banking Platform</em
+          ><br />Migration
+        </h1>
+        <p class="cs-subtitle">
+          Architecting a zero-downtime migration from a monolithic legacy
+          banking system to a cloud-native microservices platform serving
+          millions of retail customers.
+        </p>
+        <div class="cs-meta-row">
+          <div class="cs-meta-item">
+            <label>Role</label>
+            <span>Technical Architect & Lead Engineer</span>
+          </div>
+          <div class="cs-meta-item">
+            <label>Team Size</label>
+            <span>10 Engineers</span>
+          </div>
+          <div class="cs-meta-item">
+            <label>Duration</label>
+            <span>~18 Months</span>
+          </div>
+          <div class="cs-meta-item">
+            <label>Domain</label>
+            <span>Retail Banking / FinTech</span>
+          </div>
+          <div class="cs-meta-item">
+            <label>Stack</label>
+            <span
+              >Java · Spring Boot · React · OpenShift · PostgreSQL · Redis</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- METRICS BANNER -->
+    <div class="metrics-banner">
+      <div class="metrics-inner">
+        <div class="metric-item">
+          <div class="metric-num">40%</div>
+          <div class="metric-label">Faster Deployment Cycles</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-num">15+</div>
+          <div class="metric-label">Microservices Delivered</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-num">Zero</div>
+          <div class="metric-label">Critical Incidents at Launch</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="cs-content">
+      <!-- THE PROBLEM -->
+      <div class="cs-section fade-in">
+        <div class="cs-section-label">01 — The Problem</div>
+        <h2>A Monolith That Became a Liability</h2>
+        <p>
+          Meridian Financial's retail banking platform had grown into a large
+          monolithic application over many years. What started as a pragmatic
+          architecture had become a serious constraint on the engineering
+          organization.
+        </p>
+
+        <ul class="cs-list">
+          <li>
+            <strong>Coordinated release trains:</strong> Any change — even a
+            minor UI update — required a full regression cycle and a
+            synchronized release across all teams, slowing delivery to a crawl
+          </li>
+          <li>
+            <strong>Cascading failures:</strong> A bug in one domain (e.g.,
+            notifications) could destabilize unrelated domains (e.g., ACH
+            transfers), with no fault isolation between modules
+          </li>
+          <li>
+            <strong>Scaling bottlenecks:</strong> Scaling any high-traffic
+            feature required scaling the entire monolith — wasteful and
+            expensive
+          </li>
+          <li>
+            <strong>Onboarding friction:</strong> New engineers took weeks to
+            ramp up due to the deep coupling and shared codebase
+          </li>
+          <li>
+            <strong>Security complexity:</strong> Compliance and security
+            changes had to be manually propagated across hundreds of
+            interconnected components
+          </li>
+        </ul>
+
+        <div class="callout-amber callout" style="margin-top: 1.5rem">
+          <p>
+            <strong>Key constraint:</strong> This was a live platform serving
+            millions of active banking customers. Zero downtime tolerance. Any
+            architecture approach had to keep the lights on throughout the
+            entire migration.
+          </p>
+        </div>
+      </div>
+
+      <!-- TECH STACK -->
+      <div class="cs-section fade-in">
+        <div class="cs-section-label">02 — Technology Stack</div>
+        <h2>Tools & Technologies</h2>
+        <div class="tech-tags">
+          <span class="tech-tag accent">Java 17</span>
+          <span class="tech-tag accent">Spring Boot</span>
+          <span class="tech-tag accent">Spring Cloud</span>
+          <span class="tech-tag accent">React 19</span>
+          <span class="tech-tag">OAuth 2.0 / 2FA</span>
+          <span class="tech-tag">OpenShift (Kubernetes)</span>
+          <span class="tech-tag">PostgreSQL</span>
+          <span class="tech-tag">Redis</span>
+          <span class="tech-tag">Jenkins CI/CD</span>
+          <span class="tech-tag">Postman / API Contracts</span>
+          <span class="tech-tag">Resilience4j</span>
+          <span class="tech-tag">Spring Security</span>
+        </div>
+      </div>
+
+      <!-- ARCHITECTURAL APPROACH -->
+      <div class="cs-section fade-in">
+        <div class="cs-section-label">03 — Architectural Approach</div>
+        <h2>How I Designed the Migration</h2>
+
+        <div class="phases">
+          <div class="phase-step">
+            <div class="phase-dot">1</div>
+            <div class="phase-body">
+              <h3>Domain Analysis & Service Boundaries</h3>
+              <p>
+                Before writing a single line of code, I spent three weeks doing
+                domain analysis using Domain-Driven Design (DDD) techniques —
+                mapping bounded contexts by interviewing domain experts and
+                analyzing data flows across the monolith.
+              </p>
+              <ul class="cs-list">
+                <li>
+                  Account Management — balances, account details, overview
+                </li>
+                <li>Transaction History — records, statements, exports</li>
+                <li>Payments — ACH, C2C, wire transfers</li>
+                <li>Notifications & Alerts — multi-channel delivery</li>
+                <li>Customer Support — ticketing and case management</li>
+                <li>Mobile Banking — mobile-specific API surface</li>
+              </ul>
+              <div class="callout">
+                <p>
+                  Key principle: <strong>each service owned its data</strong>.
+                  No shared databases. Service-to-service communication happened
+                  only via well-defined API contracts — never direct DB calls
+                  across boundaries.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="phase-step">
+            <div class="phase-dot">2</div>
+            <div class="phase-body">
+              <h3>Migration Strategy — Strangler Fig Pattern</h3>
+              <p>
+                A big-bang rewrite was not an option with a live banking
+                platform. I chose the <strong>Strangler Fig pattern</strong> —
+                gradually routing traffic from the monolith to new microservices
+                one domain at a time, with the monolith as fallback.
+              </p>
+              <ul class="cs-list">
+                <li>
+                  <strong>Phase 1:</strong> Build new microservices behind
+                  feature flags — no production traffic yet
+                </li>
+                <li>
+                  <strong>Phase 2:</strong> Route a small % of non-critical read
+                  traffic to new services and validate
+                </li>
+                <li>
+                  <strong>Phase 3:</strong> Progressively migrate write
+                  operations domain-by-domain, starting lowest risk
+                </li>
+                <li>
+                  <strong>Phase 4:</strong> Decommission monolith modules as
+                  migration confidence grew
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="phase-step">
+            <div class="phase-dot">3</div>
+            <div class="phase-body">
+              <h3>Security Architecture</h3>
+              <p>
+                Security was the most complex challenge. Meridian required OAuth
+                2.0 with a proprietary OAuth Broker rather than a standard
+                identity provider — meaning no off-the-shelf solution.
+              </p>
+              <ul class="cs-list">
+                <li>
+                  Designed <strong>token lifecycle management</strong> with
+                  short-lived access tokens and secure refresh rotation
+                </li>
+                <li>
+                  Built a <strong>global HTTP interceptor</strong> handling auth
+                  validation, logging, and distributed caching in one
+                  cross-cutting layer — eliminating duplicated auth code across
+                  15+ services
+                </li>
+                <li>
+                  Implemented <strong>2FA at the API Gateway layer</strong> — no
+                  individual service needed to handle MFA logic
+                </li>
+                <li>
+                  Defined
+                  <strong>API security standards as a shared library</strong> —
+                  one change propagated everywhere automatically
+                </li>
+                <li>
+                  Established
+                  <strong>audit logging at infrastructure layer</strong> for
+                  compliance — no per-service developer action needed
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="phase-step">
+            <div class="phase-dot">4</div>
+            <div class="phase-body">
+              <h3>Fault Tolerance Patterns</h3>
+              <p>
+                Banking systems cannot have cascading failures. I implemented
+                defensive patterns at the service layer using Resilience4j:
+              </p>
+              <ul class="cs-list">
+                <li>
+                  <strong>Circuit Breakers:</strong> Services fail fast when a
+                  downstream dependency is unhealthy, preventing cascades
+                </li>
+                <li>
+                  <strong>Retry with Exponential Backoff:</strong> Transient
+                  failures recovered automatically without user impact
+                </li>
+                <li>
+                  <strong>Bulkheads:</strong> Thread pool isolation per service
+                  type — a slow payments service couldn't exhaust resources for
+                  account reads
+                </li>
+                <li>
+                  <strong>Timeouts on all external calls:</strong> No
+                  indefinitely hanging requests under load
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="phase-step">
+            <div class="phase-dot">5</div>
+            <div class="phase-body">
+              <h3>React Platform & BFF Layer</h3>
+              <p>
+                In parallel, I led the frontend architecture for the full retail
+                banking React platform — spanning all migrated banking domains,
+                used by millions of customers.
+              </p>
+              <ul class="cs-list">
+                <li>
+                  Designed a <strong>unified component library</strong> shared
+                  across all banking modules for visual and behavioral
+                  consistency
+                </li>
+                <li>
+                  Defined a
+                  <strong>BFF (Backend for Frontend) layer</strong> per major
+                  domain to aggregate microservice responses into
+                  frontend-optimized payloads — reducing API round trips by ~60%
+                </li>
+                <li>
+                  Implemented <strong>React Query</strong> for server state,
+                  eliminating complex Redux boilerplate for data fetching
+                </li>
+                <li>
+                  Designed
+                  <strong
+                    >loading, error, and empty states as first-class
+                    concerns</strong
+                  >
+                  — critical for financial data display reliability
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRADE-OFFS -->
+      <div class="cs-section fade-in">
+        <div class="cs-section-label">04 — Key Decisions</div>
+        <h2>Trade-offs & Architecture Decisions</h2>
+        <p>
+          Every architecture decision involves trade-offs. Here's how I thought
+          through the key ones:
+        </p>
+
+        <table class="tradeoff-table">
+          <thead>
+            <tr>
+              <th>Decision</th>
+              <th>Why I Chose It</th>
+              <th>Trade-off Accepted</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Strangler Fig over Big Bang rewrite</td>
+              <td>
+                Zero risk to live banking customers — monolith always available
+                as fallback throughout migration
+              </td>
+              <td>
+                Longer migration timeline (~18 months vs ~6 months) — worth it
+                for the safety guarantee
+              </td>
+            </tr>
+            <tr>
+              <td>Shared auth library vs service mesh</td>
+              <td>
+                Team familiarity; no service-mesh ops overhead for a 10-person
+                team with tight deadline
+              </td>
+              <td>
+                Some coupling on auth library versioning; mitigated with
+                semantic versioning strategy
+              </td>
+            </tr>
+            <tr>
+              <td>Database per service</td>
+              <td>
+                True domain isolation, independent scaling, prevents
+                cross-domain data coupling — required by banking compliance
+              </td>
+              <td>
+                More databases to manage and provision; accepted because
+                regulatory isolation required it
+              </td>
+            </tr>
+            <tr>
+              <td>BFF layer per domain</td>
+              <td>
+                Frontend-optimized payloads, reduced round trips, clear
+                domain-aligned ownership model
+              </td>
+              <td>
+                More services to maintain — judged worth it for the user
+                experience and performance gains
+              </td>
+            </tr>
+            <tr>
+              <td>OpenShift over managed Kubernetes</td>
+              <td>
+                Mandated by Meridian's existing infrastructure investment and
+                regulatory control requirements
+              </td>
+              <td>
+                Less flexibility than EKS/GKE; worked within the constraint
+                effectively using OpenShift features
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- OUTCOMES -->
+      <div class="cs-section fade-in">
+        <div class="cs-section-label">05 — Outcomes</div>
+        <h2>Results & Impact</h2>
+
+        <div class="outcome-grid">
+          <div class="outcome-card">
+            <div class="num">40%</div>
+            <div class="desc">
+              <strong>Faster deployment cycles</strong> — teams went from
+              coordinated release trains to independent domain deployments
+            </div>
+          </div>
+          <div class="outcome-card">
+            <div class="num">Zero</div>
+            <div class="desc">
+              <strong>Critical production incidents</strong> at launch — circuit
+              breakers caught and isolated three downstream failures in the
+              first month, none impacting customers
+            </div>
+          </div>
+          <div class="outcome-card">
+            <div class="num">15+</div>
+            <div class="desc">
+              <strong>Microservices delivered</strong> across all retail banking
+              domains, each with independent deploy pipelines
+            </div>
+          </div>
+          <div class="outcome-card">
+            <div class="num">~60%</div>
+            <div class="desc">
+              <strong>Reduction in API round trips</strong> through BFF layer
+              design — measurable improvement in frontend load performance
+            </div>
+          </div>
+        </div>
+
+        <h3>Qualitative Impact</h3>
+        <ul class="cs-list">
+          <li>
+            Teams ship their domain independently — no more coordinated release
+            trains blocking delivery across the org
+          </li>
+          <li>
+            New engineers onboard to a single bounded context, not the entire
+            monolith — ramp-up time significantly reduced
+          </li>
+          <li>
+            Security library updates propagate to all services automatically —
+            previously required manual changes in dozens of places
+          </li>
+          <li>
+            The Strangler Fig approach meant the business never experienced
+            downtime — migration was invisible to end customers
+          </li>
+        </ul>
+      </div>
+
+      <!-- REFLECTION -->
+      <div class="cs-section fade-in">
+        <div class="cs-section-label">06 — Reflection</div>
+        <h2>What I'd Do Differently</h2>
+        <div class="reflection">
+          <h3>Honest retrospective</h3>
+          <ul>
+            <li>
+              Introduce <strong>contract testing (Pact)</strong> from day one —
+              we relied on Postman integration tests which caught issues later
+              in the cycle than ideal
+            </li>
+            <li>
+              Invest in an <strong>internal developer portal</strong> earlier —
+              once we reached 12+ services, discoverability and ownership
+              clarity became a challenge
+            </li>
+            <li>
+              Start <strong>distributed tracing</strong> on day one — we
+              retrofitted Prometheus/Grafana mid-migration, which was
+              significantly more painful than building observability in from the
+              start
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="cs-footer">
+      <p>
+        Ripal Darji · Solutions Architect · Seattle, WA · ripaldarji16@gmail.com
+      </p>
+      <a href="../index.html#case-studies" class="btn-back"
+        >← View All Case Studies</a
+      >
+    </div>
+
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => entry.target.classList.add("visible"), i * 100);
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.08 },
+      );
+      document
+        .querySelectorAll(".fade-in")
+        .forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>
