@@ -1,0 +1,670 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Ripal Darji</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Single deliberate dark theme */
+:root{
+  color-scheme:dark;
+  --bg:#0A0E14; --bg2:#0D121A; --surface:#111823; --surface2:#16202D; --line:#212C3B; --line2:#2C3A4D;
+  --ink:#E9EDF3; --ink2:#C3CCD8; --muted:#8C98AA;
+  --blue:#5B8CFF; --blue-soft:rgba(91,140,255,.12); --teal:#3CCFBE; --teal-soft:rgba(60,207,190,.12);
+  --amber:#F2B45A; --amber-soft:rgba(242,180,90,.12);
+  --sans:"Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.65;padding-inline:20px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;position:relative}
+a{color:inherit}
+h1,h2,h3,h4{margin:0;line-height:1.15;text-wrap:balance;font-weight:700;letter-spacing:-.02em}
+p{margin:0}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--blue)}
+
+/* NAV */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;margin-inline:-20px;padding-inline:20px;background:rgba(10,14,20,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;letter-spacing:-.01em}
+.logo{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;font-family:var(--mono);font-size:13px;font-weight:500;color:#fff;background:linear-gradient(135deg,var(--blue),#3a63d8)}
+.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0}
+.nav ul a{text-decoration:none;color:var(--muted);font-size:14.5px;font-weight:500;transition:color .2s}
+.nav ul a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 14.5px/1 var(--sans);padding:12px 18px;border-radius:10px;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform .2s,background .2s,border-color .2s,box-shadow .2s}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 6px 24px -8px rgba(91,140,255,.6)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 30px -8px rgba(91,140,255,.75)}
+.btn-ghost{background:var(--surface);border-color:var(--line2);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--blue);transform:translateY(-1px)}
+.btn svg{width:17px;height:17px;flex:none}
+@media (max-width:860px){.nav ul{display:none}}
+
+/* HERO */
+.hero{position:relative;padding-block:84px 56px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+#net{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.9}
+.hero-text{position:relative;display:grid;gap:24px}
+.status-pill{justify-self:start;display:inline-flex;align-items:center;gap:9px;font-size:13.5px;font-weight:500;color:var(--ink2);padding:7px 14px 7px 11px;border:1px solid var(--line2);border-radius:999px;background:rgba(17,24,35,.7)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 0 rgba(60,207,190,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(60,207,190,0)}100%{box-shadow:0 0 0 0 rgba(60,207,190,0)}}
+.hero h1{font-size:clamp(38px,5.6vw,64px);font-weight:800;letter-spacing:-.035em}
+.grad{background:linear-gradient(90deg,var(--blue),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lede{font-size:clamp(17px,1.8vw,19px);color:var(--ink2);max-width:58ch}
+.role{font-family:var(--mono);font-size:14px;color:var(--muted);min-height:1.6em}
+.role b{color:var(--ink);font-weight:500}
+.caret{display:inline-block;width:8px;height:1.05em;background:var(--blue);vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+
+.profile{position:relative;background:linear-gradient(180deg,var(--surface),var(--bg2));border:1px solid var(--line2);border-radius:18px;padding:26px;display:grid;gap:18px;box-shadow:0 30px 80px -40px rgba(0,0,0,.8)}
+.profile::before{content:"";position:absolute;inset:-1px;border-radius:18px;padding:1px;background:linear-gradient(140deg,rgba(91,140,255,.7),transparent 40%,transparent 60%,rgba(60,207,190,.6));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.profile-head{display:flex;align-items:center;gap:14px}
+.avatar{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;font-weight:800;font-size:19px;color:#fff;background:linear-gradient(135deg,var(--blue),var(--teal))}
+.profile-head h3{font-size:18px;letter-spacing:-.01em}
+.profile-head p{font-size:13.5px;color:var(--muted)}
+.kv{display:grid;gap:10px;font-size:14px}
+.kv div{display:flex;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.kv div:last-child{border-bottom:0;padding-bottom:0}
+.kv span:first-child{color:var(--muted)}
+.kv span:last-child{text-align:right;font-weight:500}
+.socials{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.socials a{display:grid;place-items:center;gap:4px;padding:10px 4px;border:1px solid var(--line2);border-radius:10px;text-decoration:none;font-size:12px;color:var(--muted);transition:all .2s;background:var(--bg2)}
+.socials a:hover{color:var(--ink);border-color:var(--blue);transform:translateY(-2px)}
+.socials svg{width:18px;height:18px}
+@media (max-width:900px){.hero{grid-template-columns:1fr;padding-block:56px 40px}}
+
+/* load-in */
+@media (prefers-reduced-motion:no-preference){
+  .rise{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+  .d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.32s}.d5{animation-delay:.4s}
+  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .reveal.pre{opacity:0;transform:translateY(22px)}
+  .reveal{transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+}
+
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid var(--line);border-radius:16px;background:var(--surface);overflow:hidden}
+.metric{padding:22px 18px;display:grid;gap:6px;border-right:1px solid var(--line)}
+.metric:last-child{border-right:0}
+.metric b{font-size:32px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1}
+.metric b i{font-style:normal;color:var(--blue)}
+.metric > span{font-size:13px;color:var(--muted);line-height:1.4}
+@media (max-width:900px){.metrics{grid-template-columns:repeat(3,1fr)}.metric:nth-child(3n){border-right:0}.metric:nth-child(-n+3){border-bottom:1px solid var(--line)}}
+@media (max-width:520px){.metrics{grid-template-columns:repeat(2,1fr)}.metric{border-right:1px solid var(--line)!important;border-bottom:1px solid var(--line)}.metric:nth-child(2n){border-right:0!important}}
+
+/* MARQUEE */
+.marquee{margin-block:40px 0;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.track{display:flex;gap:12px;width:max-content;animation:scroll 40s linear infinite}
+.track span{font-family:var(--mono);font-size:13px;color:var(--ink2);padding:8px 14px;border:1px solid var(--line);border-radius:8px;background:var(--bg2);white-space:nowrap}
+@keyframes scroll{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.track{animation:none;flex-wrap:wrap;width:auto}}
+
+section{padding-block:96px 0}
+.sec-head{display:grid;gap:14px;margin-bottom:40px;max-width:720px}
+.sec-head h2{font-size:clamp(30px,4vw,44px);font-weight:800}
+.sec-head p{color:var(--ink2);font-size:17px}
+
+/* JOURNEY */
+.journey{display:grid;grid-template-columns:repeat(6,1fr);gap:0;position:relative}
+.journey::before{content:"";position:absolute;left:8%;right:8%;top:21px;height:2px;background:linear-gradient(90deg,var(--line2),var(--blue) 70%,var(--amber))}
+.stage{display:grid;justify-items:center;text-align:center;gap:10px;position:relative;padding-inline:6px}
+.node{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:2px solid var(--blue);font-family:var(--mono);font-size:11px;color:var(--ink);z-index:1;transition:transform .25s,box-shadow .25s}
+.stage:hover .node{transform:scale(1.1);box-shadow:0 0 0 6px var(--blue-soft)}
+.stage.next .node{border-color:var(--amber);border-style:dashed;color:var(--amber)}
+.stage b{font-size:14.5px}
+.stage span{font-size:12.5px;color:var(--muted);line-height:1.4}
+@media (max-width:760px){
+  .journey{grid-template-columns:1fr;gap:18px}
+  .journey::before{left:21px;right:auto;top:10px;bottom:10px;width:2px;height:auto;background:linear-gradient(180deg,var(--line2),var(--blue) 70%,var(--amber))}
+  .stage{grid-template-columns:44px 1fr;justify-items:start;text-align:left;column-gap:16px;row-gap:0;padding:0}
+  .stage .node{grid-row:span 2}
+}
+
+/* CASE STUDIES */
+.cases{display:grid;gap:20px}
+.case{display:grid;grid-template-columns:260px 1fr;border:1px solid var(--line);border-radius:18px;background:var(--surface);overflow:hidden;transition:border-color .3s,transform .3s}
+.case:hover{border-color:var(--line2);transform:translateY(-2px)}
+.case-side{padding:28px;background:linear-gradient(160deg,var(--surface2),var(--surface));border-right:1px solid var(--line);display:grid;gap:18px;align-content:start}
+.tag{justify-self:start;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--blue);background:var(--blue-soft);padding:5px 10px;border-radius:6px}
+.big{font-size:48px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.big-label{font-size:14px;color:var(--ink2);margin-top:6px}
+.meta{font-size:13px;color:var(--muted);display:grid;gap:3px}
+.case-main{padding:28px 30px;display:grid;gap:18px}
+.case-main h3{font-size:clamp(20px,2.4vw,24px)}
+.case-main > p{color:var(--ink2)}
+.adr{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.adr h4{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:8px}
+.adr ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.adr li{font-size:14.5px;color:var(--ink2);padding-left:16px;position:relative;line-height:1.5}
+.adr li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:2px;background:var(--blue)}
+.adr .tr li::before{background:var(--amber)}
+.adr .res li::before{background:var(--teal)}
+.stack{display:flex;flex-wrap:wrap;gap:6px;padding-top:16px;border-top:1px solid var(--line)}
+.stack span{font-family:var(--mono);font-size:11.5px;color:var(--muted);padding:4px 8px;border-radius:5px;background:var(--bg2);border:1px solid var(--line)}
+@media (max-width:900px){.case{grid-template-columns:1fr}.case-side{border-right:0;border-bottom:1px solid var(--line)}.adr{grid-template-columns:1fr}}
+
+
+/* COLLAB */
+.collab{display:grid;grid-template-columns:.8fr 1.2fr;gap:28px;align-items:center}
+.hub{border:1px solid var(--line);border-radius:18px;background:radial-gradient(circle at 50% 50%,rgba(91,140,255,.1),transparent 65%),var(--surface);padding:16px}
+.hub svg{display:block;width:100%;height:auto;max-width:420px;margin:0 auto}
+.partners{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.partner{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--surface);display:grid;gap:6px;align-content:start;transition:border-color .25s,transform .25s}
+.partner:hover{border-color:var(--blue);transform:translateY(-2px)}
+.partner:last-child{grid-column:1/-1}
+.partner h3{font-size:16px}
+.partner p{font-size:14.5px;color:var(--ink2)}
+.partner span{font-family:var(--mono);font-size:11.5px;color:var(--teal)}
+@media (max-width:900px){.collab{grid-template-columns:1fr}}
+@media (max-width:560px){.partners{grid-template-columns:1fr}}
+
+/* AI */
+.diagram{border:1px solid var(--line);border-radius:18px;background:radial-gradient(ellipse at 50% 0%,rgba(91,140,255,.08),transparent 60%),var(--surface);padding:24px 20px 18px;margin-bottom:24px}
+.diagram-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+.diagram-head b{font-size:15px}
+.diagram-head span{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.dscroll{overflow-x:auto}
+.dscroll svg{display:block;min-width:820px;width:100%;height:auto}
+.dscroll text{font-family:var(--sans)}
+.wire{fill:none;stroke:#2C3A4D;stroke-width:1.5}
+.box{fill:#16202D;stroke:#2C3A4D;stroke-width:1.2}
+.box.hl{stroke:#5B8CFF}
+.box.hl2{stroke:#3CCFBE}
+.t1{fill:#E9EDF3;font-size:13px;font-weight:600}
+.t2{fill:#8C98AA;font-size:11px}
+.ai-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.ai{position:relative;border:1px solid var(--line);border-radius:16px;padding:24px;background:var(--surface);display:grid;gap:10px;align-content:start;transition:transform .3s,border-color .3s;overflow:hidden}
+.ai:hover{transform:translateY(-3px);border-color:var(--line2)}
+.ai::after{content:"";position:absolute;inset:auto -40% -60% auto;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(91,140,255,.14),transparent 70%);opacity:0;transition:opacity .4s}
+.ai:hover::after{opacity:1}
+.ai h3{font-size:18px}
+.ai p{font-size:14.5px;color:var(--ink2)}
+.st{justify-self:start;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:5px;display:inline-flex;align-items:center;gap:6px}
+.st.done{color:var(--teal);background:var(--teal-soft)}
+.st.build{color:var(--amber);background:var(--amber-soft)}
+.st.build::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--amber);animation:pulse2 1.6s infinite}
+@keyframes pulse2{50%{opacity:.3}}
+.ai .mini{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+
+/* CAPABILITIES */
+.caps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.cap{background:var(--surface);padding:26px;display:grid;gap:10px;align-content:start;transition:background .3s}
+.cap:hover{background:var(--surface2)}
+.cap-ic{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:var(--blue-soft);color:var(--blue)}
+.cap-ic svg{width:19px;height:19px}
+.cap h3{font-size:17px}
+.cap p{font-size:14.5px;color:var(--ink2)}
+@media (max-width:860px){.caps{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.caps{grid-template-columns:1fr}}
+
+/* EXPERIENCE */
+.xp{display:grid;gap:0;border-top:1px solid var(--line)}
+.job{display:grid;grid-template-columns:170px 1fr auto;gap:24px;padding-block:22px;border-bottom:1px solid var(--line);align-items:baseline;transition:background .25s}
+.job:hover{background:linear-gradient(90deg,transparent,var(--blue-soft),transparent)}
+.job .when{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.job h3{font-size:17px;margin-bottom:4px}
+.job p{font-size:14.5px;color:var(--ink2)}
+.job .where{font-size:13px;color:var(--muted);white-space:nowrap}
+@media (max-width:700px){.job{grid-template-columns:1fr;gap:4px}.job .where{white-space:normal}}
+
+/* CONTACT */
+.contact{margin-block:110px 40px;border:1px solid var(--line2);border-radius:22px;padding:clamp(28px,5vw,56px);background:radial-gradient(ellipse at 0% 0%,rgba(91,140,255,.16),transparent 55%),radial-gradient(ellipse at 100% 100%,rgba(60,207,190,.12),transparent 55%),var(--surface);display:grid;gap:28px}
+.contact h2{font-size:clamp(30px,4.4vw,48px);font-weight:800}
+.contact > p{color:var(--ink2);max-width:60ch;font-size:17px}
+.links{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.lk{display:grid;gap:6px;padding:18px;border-radius:14px;border:1px solid var(--line2);background:rgba(10,14,20,.5);text-decoration:none;transition:transform .2s,border-color .2s}
+.lk:hover{transform:translateY(-3px);border-color:var(--blue)}
+.lk .ic{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;background:var(--blue-soft);color:var(--blue);margin-bottom:6px}
+.lk .ic svg{width:18px;height:18px}
+.lk b{font-size:15px}
+.lk span{font-size:13px;color:var(--muted);word-break:break-all}
+button.lk{font:inherit;color:inherit;text-align:left;cursor:pointer}
+@media (max-width:860px){.links{grid-template-columns:1fr 1fr}}
+@media (max-width:460px){.links{grid-template-columns:1fr}}
+footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px;color:var(--muted);padding-block:10px 36px}
+</style>
+
+<!-- ICONS -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-gh" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></symbol>
+  <symbol id="i-in" viewBox="0 0 24 24"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zm7 0h3.8v1.5h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1v6.46h-4v-5.73c0-1.37-.03-3.13-1.9-3.13-1.91 0-2.2 1.49-2.2 3.03v5.83H10z"/></symbol>
+  <symbol id="i-md" viewBox="0 0 24 24"><path fill="currentColor" d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 5h18v14H3zM3 6l9 7 9-7"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-net" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M7 6h10M6 8l5 8M18 8l-5 8"/></g></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M7 18h10a4 4 0 0 0 .5-7.97A6 6 0 0 0 6 9.5 4.25 4.25 0 0 0 7 18z"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></g></symbol>
+  <symbol id="i-team" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 4 6"/></g></symbol>
+</svg>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="logo">RD</span>Ripal Darji</a>
+    <ul>
+      <li><a href="#journey">Journey</a></li>
+      <li><a href="#work">Case studies</a></li>
+      <li><a href="#collab">How I work</a></li>
+      <li><a href="#ai">AI systems</a></li>
+      <li><a href="#experience">Experience</a></li>
+    </ul>
+    <a class="btn btn-primary" href="#contact">Get in touch</a>
+  </div>
+</header>
+
+<div class="wrap" id="top">
+  <div class="hero">
+    <canvas id="net" aria-hidden="true"></canvas>
+    <div class="hero-text">
+      <span class="status-pill rise"><span class="dot"></span>Open to Senior Software Engineer &amp; Solution Architect roles in AI · Seattle</span>
+      <h1 class="rise d1">Building products for the <span class="grad">AI era</span> with cross-functional teams.</h1>
+      <p class="role rise d2" aria-live="polite">&gt; <b id="typed">Senior Software Engineer</b><span class="caret"></span></p>
+      <p class="lede rise d3">10+ years designing and shipping secure, scalable platforms in banking, healthcare and SaaS with Java, Spring Boot, React and AWS. I work closely with product, design, QA and business teams to turn requirements into systems, and now bring that same approach to RAG, LLM gateways and agentic AI.</p>
+      <div class="cta rise d4">
+        <a class="btn btn-primary" href="#work">View case studies <svg><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ghost" href="https://github.com/riipal"><svg><use href="#i-gh"/></svg>GitHub</a>
+      </div>
+    </div>
+
+    <aside class="profile rise d5" aria-label="Profile summary">
+      <div class="profile-head">
+        <div class="avatar">RD</div>
+        <div><h3>Ripal Darji</h3><p>Senior Software Engineer · Solution Architect</p></div>
+      </div>
+      <div class="kv">
+        <div><span>Experience</span><span>10+ years</span></div>
+        <div><span>Core stack</span><span>Java · Spring Boot · React · AWS</span></div>
+        <div><span>Domains</span><span>Banking · Healthcare · SaaS</span></div>
+        <div><span>Leadership</span><span>Cross-functional teams, up to 10</span></div>
+        <div><span>Works with</span><span>Product · Design · QA · Business</span></div>
+        <div><span>Location</span><span>Seattle · open to relocate</span></div>
+      </div>
+      <div class="socials">
+        <a href="https://github.com/riipal"><svg><use href="#i-gh"/></svg>GitHub</a>
+        <a href="https://www.linkedin.com/in/ripaldarji/"><svg><use href="#i-in"/></svg>LinkedIn</a>
+        <a href="https://medium.com/@ripaldarji16"><svg><use href="#i-md"/></svg>Medium</a>
+        <a href="#contact"><svg><use href="#i-mail"/></svg>Email</a>
+      </div>
+    </aside>
+  </div>
+
+  <div class="metrics reveal" aria-label="Measured results">
+    <div class="metric"><b><span class="count" data-to="10">10</span><i>+</i></b><span>Years building production systems</span></div>
+    <div class="metric"><b><span class="count" data-to="30">30</span><i>%</i></b><span>Faster page loads after modernization</span></div>
+    <div class="metric"><b><span class="count" data-to="25">25</span><i>%</i></b><span>Fewer production defects</span></div>
+    <div class="metric"><b><span class="count" data-to="22">22</span><i>%</i></b><span>Faster data retrieval</span></div>
+    <div class="metric"><b><span class="count" data-to="20">20</span><i>%</i></b><span>Lower operational cost</span></div>
+    <div class="metric"><b><span class="count" data-to="2000" data-fmt="k">2,000</span><i>+</i></b><span>Healthcare facilities served</span></div>
+  </div>
+
+  <div class="marquee" aria-label="Technologies">
+    <div class="track">
+      <span>Java 17</span><span>Spring Boot</span><span>Spring AI</span><span>React 19</span><span>TypeScript</span><span>AWS Lambda</span><span>ECS</span><span>API Gateway</span><span>Bedrock</span><span>Kafka</span><span>RabbitMQ</span><span>SQS / SNS</span><span>PostgreSQL</span><span>pgvector</span><span>Redis</span><span>DynamoDB</span><span>Elasticsearch</span><span>Docker</span><span>Kubernetes</span><span>OAuth 2.0</span><span>Resilience4j</span><span>Claude</span><span>MCP</span>
+      <span aria-hidden="true">Java 17</span><span aria-hidden="true">Spring Boot</span><span aria-hidden="true">Spring AI</span><span aria-hidden="true">React 19</span><span aria-hidden="true">TypeScript</span><span aria-hidden="true">AWS Lambda</span><span aria-hidden="true">ECS</span><span aria-hidden="true">API Gateway</span><span aria-hidden="true">Bedrock</span><span aria-hidden="true">Kafka</span><span aria-hidden="true">RabbitMQ</span><span aria-hidden="true">SQS / SNS</span><span aria-hidden="true">PostgreSQL</span><span aria-hidden="true">pgvector</span><span aria-hidden="true">Redis</span><span aria-hidden="true">DynamoDB</span><span aria-hidden="true">Elasticsearch</span><span aria-hidden="true">Docker</span><span aria-hidden="true">Kubernetes</span><span aria-hidden="true">OAuth 2.0</span><span aria-hidden="true">Resilience4j</span><span aria-hidden="true">Claude</span><span aria-hidden="true">MCP</span>
+    </div>
+  </div>
+
+  <section id="journey">
+    <div class="sec-head reveal">
+      <span class="eyebrow">A decade of architecture</span>
+      <h2>From monoliths to AI-native systems</h2>
+      <p>Each stage of my career moved the systems I work on one step further toward distributed, cloud-native and now intelligent platforms.</p>
+    </div>
+    <div class="journey reveal">
+      <div class="stage"><div class="node">'15</div><b>Monolith</b><span>PHP inventory and order system</span></div>
+      <div class="stage"><div class="node">'18</div><b>Multi-tenant SaaS</b><span>University ERP on microservices</span></div>
+      <div class="stage"><div class="node">'21</div><b>Healthcare platform</b><span>RBAC for 2,000+ facilities</span></div>
+      <div class="stage"><div class="node">'22</div><b>Banking microservices</b><span>Secure Spring Boot on AWS</span></div>
+      <div class="stage"><div class="node">'24</div><b>Containerized cloud</b><span>Docker, ECR, React 19</span></div>
+      <div class="stage next"><div class="node">'26</div><b>AI-native systems</b><span>RAG, LLM gateways, agents</span></div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Case studies</span>
+      <h2>Architecture decisions and their results</h2>
+      <p>Each case study is written like an architecture decision record: what I decided, what I traded off, and what it achieved.</p>
+    </div>
+
+    <div class="cases">
+      <article class="case reveal">
+        <div class="case-side">
+          <span class="tag">BANKING · FINTECH</span>
+          <div><div class="big">10</div><div class="big-label">engineers led through a legacy-to-microservices migration</div></div>
+          <div class="meta"><span>With business, product and QA</span><span>Royal Bank of Canada (via TCS)</span><span>2022 – 2024</span></div>
+        </div>
+        <div class="case-main">
+          <h3>Moving a retail bank's legacy services to secure microservices</h3>
+          <p>Legacy services were hard to scale and change, yet had to carry transfers, statements, alerts and mobile banking under strict security rules.</p>
+          <div class="adr">
+            <div><h4>Decision</h4><ul>
+              <li>Spring Boot REST services on AWS with PostgreSQL and Redis</li>
+              <li>OAuth 2.0 and 2FA through RBC's OAuth Broker</li>
+              <li>Message-broker async processing for alerts</li>
+            </ul></div>
+            <div class="tr"><h4>Trade-offs</h4><ul>
+              <li>Eventual consistency for notifications so slow services never block customers</li>
+              <li>Circuit breakers and retry with backoff to stop cascading failures</li>
+            </ul></div>
+            <div class="res"><h4>Result</h4><ul>
+              <li>ACH, wire and C2C transfers on a modern React platform</li>
+              <li>Releases gated by load, stress and API tests</li>
+            </ul></div>
+          </div>
+          <div class="stack"><span>Java</span><span>Spring Boot</span><span>PostgreSQL</span><span>Redis</span><span>AWS</span><span>OAuth 2.0</span><span>Resilience4j</span><span>React</span></div>
+        </div>
+      </article>
+
+      <article class="case reveal">
+        <div class="case-side">
+          <span class="tag">MARKETING SAAS</span>
+          <div><div class="big">30%</div><div class="big-label">faster load times, with 15% higher client engagement</div></div>
+          <div class="meta"><span>With product, design and backend</span><span>Pica9 · Seattle</span><span>2024 – 2025</span></div>
+        </div>
+        <div class="case-main">
+          <h3>A digital asset management module on a modernized front end</h3>
+          <p>Customers managed large asset libraries on an ageing front end, and every product carried its own copy of shared components.</p>
+          <div class="adr">
+            <div><h4>Decision</h4><ul>
+              <li>Upgrade to React 19 with reusable components across products</li>
+              <li>DAM with role-based access, search, infinite scroll, bulk actions</li>
+              <li>Docker for every service, images in ECR, assets in S3</li>
+            </ul></div>
+            <div class="tr"><h4>Trade-offs</h4><ul>
+              <li>Server pagination instead of loading whole libraries</li>
+              <li>Up-front cost of a shared library, repaid in every product</li>
+            </ul></div>
+            <div class="res"><h4>Result</h4><ul>
+              <li>25% fewer production defects</li>
+              <li>Mentored 5–6 engineers on front-end standards</li>
+            </ul></div>
+          </div>
+          <div class="stack"><span>React 19</span><span>Spring Boot</span><span>Docker</span><span>AWS S3</span><span>ECR</span><span>Python</span></div>
+        </div>
+      </article>
+
+      <article class="case reveal">
+        <div class="case-side">
+          <span class="tag">HEALTHCARE</span>
+          <div><div class="big">2,000+</div><div class="big-label">healthcare facilities hiring on one platform</div></div>
+          <div class="meta"><span>With clients and third-party vendors</span><span>Bacancy Technology</span><span>2021 – 2022</span></div>
+        </div>
+        <div class="case-main">
+          <h3>A high-availability hiring platform for healthcare</h3>
+          <p>Facilities needed to post jobs, screen candidates and sign contracts in one place, with tight control over sensitive data.</p>
+          <div class="adr">
+            <div><h4>Decision</h4><ul>
+              <li>React and Spring Boot on MySQL, built for high availability</li>
+              <li>Role-based access for facilities, recruiters and admins</li>
+            </ul></div>
+            <div class="tr"><h4>Trade-offs</h4><ul>
+              <li>Bought e-signature (Right Signature) rather than build: faster and already compliant</li>
+              <li>Open GSA integration for U.S. government data</li>
+            </ul></div>
+            <div class="res"><h4>Result</h4><ul>
+              <li>20% shorter time to hire</li>
+              <li>One workflow from job post to signed offer</li>
+            </ul></div>
+          </div>
+          <div class="stack"><span>React</span><span>Spring Boot</span><span>MySQL</span><span>RBAC</span><span>REST integrations</span></div>
+        </div>
+      </article>
+
+      <article class="case reveal">
+        <div class="case-side">
+          <span class="tag">EDUCATION · ERP</span>
+          <div><div class="big">22%</div><div class="big-label">faster data retrieval with Elasticsearch</div></div>
+          <div class="meta"><span>Led cross-functional teams</span><span>Brainvire Infotech</span><span>2018 – 2021</span></div>
+        </div>
+        <div class="case-main">
+          <h3>Multi-tenant ERP and university management SaaS</h3>
+          <p>Universities ran grants, IRB reviews and sponsored projects by hand, and many institutions had to share one platform safely.</p>
+          <div class="adr">
+            <div><h4>Decision</h4><ul>
+              <li>Multi-tenant microservices on MongoDB and PostgreSQL</li>
+              <li>Elasticsearch search and D3.js dashboards</li>
+              <li>LDAP sign-in for each university's directory</li>
+            </ul></div>
+            <div class="tr"><h4>Trade-offs</h4><ul>
+              <li>Polyglot storage kept in sync, each store used for what it does best</li>
+              <li>Tenant isolation designed in from day one</li>
+            </ul></div>
+            <div class="res"><h4>Result</h4><ul>
+              <li>Automated Grants, IRB and Sponsored Projects workflows</li>
+              <li>AWS infrastructure tuned for availability</li>
+            </ul></div>
+          </div>
+          <div class="stack"><span>React</span><span>Microservices</span><span>MongoDB</span><span>PostgreSQL</span><span>Elasticsearch</span><span>LDAP</span><span>AWS</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="collab">
+    <div class="sec-head reveal">
+      <span class="eyebrow">How I work</span>
+      <h2>Engineering with the whole team</h2>
+      <p>Good systems come from engineers who understand the product and the business. In every role, I've been the engineer who connects them.</p>
+    </div>
+    <div class="collab reveal">
+      <div class="hub" aria-hidden="true">
+        <svg viewBox="0 0 360 300">
+          <g stroke="#2C3A4D" stroke-width="1.5" fill="none">
+            <path id="c1" d="M180 150 L70 55"/><path id="c2" d="M180 150 L290 55"/><path id="c3" d="M180 150 L70 245"/><path id="c4" d="M180 150 L290 245"/>
+          </g>
+          <g class="pk">
+            <circle r="3.5" fill="#5B8CFF"><animateMotion dur="2.2s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;.5;1" calcMode="linear"><mpath href="#c1"/></animateMotion></circle>
+            <circle r="3.5" fill="#3CCFBE"><animateMotion dur="2.2s" begin=".55s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;.5;1" calcMode="linear"><mpath href="#c2"/></animateMotion></circle>
+            <circle r="3.5" fill="#F2B45A"><animateMotion dur="2.2s" begin="1.1s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;.5;1" calcMode="linear"><mpath href="#c3"/></animateMotion></circle>
+            <circle r="3.5" fill="#5B8CFF"><animateMotion dur="2.2s" begin="1.65s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;.5;1" calcMode="linear"><mpath href="#c4"/></animateMotion></circle>
+          </g>
+          <g font-family="Plus Jakarta Sans, system-ui, sans-serif" text-anchor="middle">
+            <rect x="20" y="33" width="100" height="44" rx="10" fill="#16202D" stroke="#2C3A4D"/><text x="70" y="60" fill="#E9EDF3" font-size="13" font-weight="600">Product</text>
+            <rect x="240" y="33" width="100" height="44" rx="10" fill="#16202D" stroke="#2C3A4D"/><text x="290" y="60" fill="#E9EDF3" font-size="13" font-weight="600">Design / UX</text>
+            <rect x="20" y="223" width="100" height="44" rx="10" fill="#16202D" stroke="#2C3A4D"/><text x="70" y="250" fill="#E9EDF3" font-size="13" font-weight="600">QA &amp; release</text>
+            <rect x="240" y="223" width="100" height="44" rx="10" fill="#16202D" stroke="#2C3A4D"/><text x="290" y="250" fill="#E9EDF3" font-size="13" font-weight="600">Business</text>
+            <circle cx="180" cy="150" r="46" fill="#111823" stroke="#5B8CFF" stroke-width="2"/>
+            <text x="180" y="146" fill="#E9EDF3" font-size="13" font-weight="700">Engineering</text>
+            <text x="180" y="163" fill="#8C98AA" font-size="11">architecture</text>
+          </g>
+        </svg>
+      </div>
+      <div class="partners">
+        <div class="partner"><h3>Product</h3><p>Turn business requirements into technical designs and phased delivery plans.</p><span>Evidence: RBC banking platform, Pica9 DAM</span></div>
+        <div class="partner"><h3>Design and UX</h3><p>Shape UX flows with designers so features are buildable, fast and consistent.</p><span>Evidence: 15% higher client engagement at Pica9</span></div>
+        <div class="partner"><h3>QA and release</h3><p>CI/CD, Postman API automation, unit, integration, load and stress testing before every release.</p><span>Evidence: 25% fewer production defects</span></div>
+        <div class="partner"><h3>Business and clients</h3><p>Explain trade-offs in plain terms and agree on what gets built first.</p><span>Evidence: 20% shorter time to hire for healthcare clients</span></div>
+        <div class="partner"><h3>Engineers</h3><p>Lead code reviews, mentor developers and set standards teams keep using.</p><span>Evidence: led 10 engineers, mentored 5–6</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ai">
+    <div class="sec-head reveal">
+      <span class="eyebrow">AI systems</span>
+      <h2>Production discipline for AI</h2>
+      <p>Security, cost, latency and failure handling decide whether an AI feature survives production. This is the reference architecture I'm building in public.</p>
+    </div>
+
+    <div class="diagram reveal">
+      <div class="diagram-head"><b>Enterprise RAG with an LLM gateway</b><span>reference architecture · request flow</span></div>
+      <div class="dscroll">
+        <svg viewBox="0 0 1000 300" role="img" aria-labelledby="dT">
+          <title id="dT">A user request goes through an API gateway with OAuth, then an LLM gateway that checks guardrails and a semantic cache. On a cache miss, a retriever pulls access-controlled chunks from pgvector, the model generates an answer, and every step is traced for evals and cost.</title>
+          <defs>
+            <linearGradient id="gw" x1="0" x2="1"><stop offset="0" stop-color="#5B8CFF"/><stop offset="1" stop-color="#3CCFBE"/></linearGradient>
+          </defs>
+          <!-- wires -->
+          <path id="p1" class="wire" d="M130 120 H200"/>
+          <path id="p2" class="wire" d="M330 120 H400"/>
+          <path id="p3" class="wire" d="M580 120 H650"/>
+          <path id="p4" class="wire" d="M780 120 H850"/>
+          <path id="p5" class="wire" d="M490 160 V210"/>
+          <path id="p6" class="wire" d="M715 160 V210"/>
+          <path class="wire" d="M40 250 H960" stroke-dasharray="3 5"/>
+          <!-- boxes -->
+          <rect class="box" x="20" y="85" width="110" height="70" rx="10"/>
+          <text class="t1" x="75" y="116" text-anchor="middle">Client</text><text class="t2" x="75" y="134" text-anchor="middle">React app</text>
+          <rect class="box" x="200" y="85" width="130" height="70" rx="10"/>
+          <text class="t1" x="265" y="116" text-anchor="middle">API Gateway</text><text class="t2" x="265" y="134" text-anchor="middle">OAuth 2.0 · rate limit</text>
+          <rect class="box hl" x="400" y="80" width="180" height="80" rx="12"/>
+          <text class="t1" x="490" y="112" text-anchor="middle">LLM Gateway</text><text class="t2" x="490" y="130" text-anchor="middle">guardrails · PII redaction</text><text class="t2" x="490" y="146" text-anchor="middle">routing · fallback</text>
+          <rect class="box" x="650" y="85" width="130" height="70" rx="10"/>
+          <text class="t1" x="715" y="116" text-anchor="middle">Retriever</text><text class="t2" x="715" y="134" text-anchor="middle">Spring AI · rerank</text>
+          <rect class="box hl2" x="850" y="85" width="130" height="70" rx="10"/>
+          <text class="t1" x="915" y="116" text-anchor="middle">Model</text><text class="t2" x="915" y="134" text-anchor="middle">Bedrock · Claude</text>
+          <rect class="box" x="420" y="210" width="140" height="30" rx="8"/>
+          <text class="t2" x="490" y="229" text-anchor="middle" style="fill:#C3CCD8">Semantic cache · Redis</text>
+          <rect class="box" x="640" y="210" width="150" height="30" rx="8"/>
+          <text class="t2" x="715" y="229" text-anchor="middle" style="fill:#C3CCD8">pgvector · ACL-filtered</text>
+          <text class="t2" x="40" y="275">OpenTelemetry tracing · eval harness (faithfulness, recall) · cost per request</text>
+          <!-- packets -->
+          <g class="pk">
+            <circle r="4" fill="url(#gw)"><animateMotion dur="1.6s" repeatCount="indefinite"><mpath href="#p1"/></animateMotion></circle>
+            <circle r="4" fill="#5B8CFF"><animateMotion dur="1.6s" begin=".4s" repeatCount="indefinite"><mpath href="#p2"/></animateMotion></circle>
+            <circle r="4" fill="#5B8CFF"><animateMotion dur="1.6s" begin=".8s" repeatCount="indefinite"><mpath href="#p3"/></animateMotion></circle>
+            <circle r="4" fill="#3CCFBE"><animateMotion dur="1.6s" begin="1.2s" repeatCount="indefinite"><mpath href="#p4"/></animateMotion></circle>
+            <circle r="3.5" fill="#F2B45A"><animateMotion dur="1.2s" begin=".6s" repeatCount="indefinite"><mpath href="#p5"/></animateMotion></circle>
+            <circle r="3.5" fill="#3CCFBE"><animateMotion dur="1.2s" begin="1s" repeatCount="indefinite"><mpath href="#p6"/></animateMotion></circle>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ai-grid">
+      <div class="ai reveal"><span class="st done">Shipped</span><h3>Contributor, Cohere For AI Aya Dataset</h3><p>Contributed to Aya, an open multilingual instruction dataset used to train and evaluate large language models.</p><span class="mini">Open source · multilingual LLMs</span></div>
+      <div class="ai reveal"><span class="st done">In daily practice</span><h3>AI-assisted engineering</h3><p>Claude, GitHub Copilot and Cursor in design reviews, refactoring and test generation, with review standards so AI-written code meets the same bar.</p><span class="mini">Claude · Copilot · Cursor</span></div>
+      <div class="ai reveal"><span class="st build">Building</span><h3>Enterprise RAG assistant</h3><p>Access-controlled retrieval over company documents with an evaluation harness and a cost and latency dashboard.</p><span class="mini">Spring AI · pgvector · Bedrock</span></div>
+      <div class="ai reveal"><span class="st build">Building</span><h3>LLM gateway</h3><p>One entry point for model calls: routing, semantic caching, rate limits, PII redaction, fallbacks and per-team cost tracking.</p><span class="mini">Spring Boot · Redis · OpenTelemetry</span></div>
+      <div class="ai reveal"><span class="st build">Building</span><h3>Agentic workflow with MCP</h3><p>An agent that acts through audited tools, with human approval for anything irreversible and replayable logs.</p><span class="mini">MCP · Claude · tool use</span></div>
+      <div class="ai reveal"><span class="st build">Building</span><h3>Event-driven payments system</h3><p>Kafka with the outbox pattern, sagas and idempotency keys on Kubernetes, load-tested with published p99 latency.</p><span class="mini">Kafka · Kubernetes · k6</span></div>
+    </div>
+  </section>
+
+  <section id="capabilities">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Capabilities</span>
+      <h2>What I bring to an engineering team</h2>
+    </div>
+    <div class="caps reveal">
+      <div class="cap"><div class="cap-ic"><svg><use href="#i-net"/></svg></div><h3>Distributed systems</h3><p>Microservices and event-driven design with Kafka, RabbitMQ and SQS/SNS. Distributed transactions and CAP trade-offs.</p></div>
+      <div class="cap"><div class="cap-ic"><svg><use href="#i-bolt"/></svg></div><h3>Resilience and scale</h3><p>Circuit breakers, retry with backoff, rate limiting, caching strategies, load and stress testing.</p></div>
+      <div class="cap"><div class="cap-ic"><svg><use href="#i-shield"/></svg></div><h3>Security and compliance</h3><p>OAuth 2.0, JWT, 2FA, LDAP and RBAC for banking and healthcare workloads.</p></div>
+      <div class="cap"><div class="cap-ic"><svg><use href="#i-cloud"/></svg></div><h3>Cloud and delivery</h3><p>AWS Lambda, ECS, API Gateway, S3 and EC2. Docker, Kubernetes, Jenkins and SonarQube pipelines.</p></div>
+      <div class="cap"><div class="cap-ic"><svg><use href="#i-db"/></svg></div><h3>Data and AI</h3><p>PostgreSQL, MongoDB, DynamoDB, Redis, Elasticsearch, vector search and LLM integration.</p></div>
+      <div class="cap"><div class="cap-ic"><svg><use href="#i-team"/></svg></div><h3>Cross-functional leadership</h3><p>Led teams of up to 10, mentored engineers, and aligned product, design, QA and business on one technical plan.</p></div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Experience</span>
+      <h2>Ten years across five companies</h2>
+    </div>
+    <div class="xp reveal">
+      <div class="job"><span class="when">2024 – 2025</span><div><h3>Senior Software Development Engineer</h3><p>Front-end modernization, DAM architecture, containerized delivery on AWS.</p></div><span class="where">Pica9 · Seattle</span></div>
+      <div class="job"><span class="when">2022 – 2024</span><div><h3>Software Development Engineer</h3><p>Led 10 engineers moving legacy banking services to secure microservices.</p></div><span class="where">TCS · Royal Bank of Canada</span></div>
+      <div class="job"><span class="when">2021 – 2022</span><div><h3>Senior Software Engineer</h3><p>Healthcare hiring platform for 2,000+ facilities.</p></div><span class="where">Bacancy Technology</span></div>
+      <div class="job"><span class="when">2018 – 2021</span><div><h3>Senior Software Engineer</h3><p>Multi-tenant ERP and university management SaaS.</p></div><span class="where">Brainvire Infotech</span></div>
+      <div class="job"><span class="when">2015 – 2018</span><div><h3>Developer</h3><p>Inventory management system with barcode scanning and multi-location stock.</p></div><span class="where">24*7 Developers</span></div>
+      <div class="job"><span class="when">2014</span><div><h3>B.E., CGPA 9.3</h3><p>Bachelor of Engineering.</p></div><span class="where">Gujarat Technological University</span></div>
+    </div>
+  </section>
+
+  <div class="contact reveal" id="contact">
+    <span class="eyebrow">Contact</span>
+    <h2>Let's build what comes next.</h2>
+    <p>I'm looking for Senior Software Engineer and Solution Architect roles on AI product teams, in Seattle or remote. I'm happy to talk about architecture, AI systems or a role on your team.</p>
+    <div class="links">
+      <button class="lk" type="button" id="copyEmail"><span class="ic"><svg><use href="#i-mail"/></svg></span><b id="emailLabel">Email · click to copy</b><span id="emailAddr">ripaldarji16@gmail.com</span></button>
+      <a class="lk" href="https://www.linkedin.com/in/ripaldarji/"><span class="ic"><svg><use href="#i-in"/></svg></span><b>LinkedIn</b><span>in/ripaldarji</span></a>
+      <a class="lk" href="https://github.com/riipal"><span class="ic"><svg><use href="#i-gh"/></svg></span><b>GitHub</b><span>github.com/riipal</span></a>
+      <a class="lk" href="https://medium.com/@ripaldarji16"><span class="ic"><svg><use href="#i-md"/></svg></span><b>Medium</b><span>@ripaldarji16</span></a>
+    </div>
+  </div>
+
+  <footer><span>© 2026 Ripal Darji</span><span>Seattle, WA · Open to relocation</span></footer>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* typed roles */
+  var roles=["Senior Software Engineer","Solution Architect","Java · Spring Boot · React · AWS","RAG & LLM systems","Cross-functional team leader"];
+  var el=document.getElementById('typed');
+  if(!reduce && el){
+    var r=0,i=roles[0].length,del=true;
+    (function tick(){
+      var w=roles[r];
+      if(del){ i--; if(i<=0){del=false;r=(r+1)%roles.length;} }
+      else { i++; if(i>=roles[r].length){ del=true; el.textContent=roles[r]; return setTimeout(tick,1900);} }
+      el.textContent=roles[r].slice(0,Math.max(i,0));
+      setTimeout(tick, del?35:70);
+    })();
+  }
+
+  /* neural network canvas */
+  var c=document.getElementById('net');
+  if(c && c.getContext){
+    var ctx=c.getContext('2d'), pts=[], W=0, H=0, dpr=Math.min(window.devicePixelRatio||1,2);
+    function size(){
+      var b=c.getBoundingClientRect(); W=b.width; H=b.height;
+      c.width=W*dpr; c.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+      var n=Math.round(Math.min(70, W*H/14000));
+      pts=[]; for(var k=0;k<n;k++){pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28})}
+    }
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      for(var a=0;a<pts.length;a++){
+        var p=pts[a];
+        if(!reduce){p.x+=p.vx;p.y+=p.vy; if(p.x<0||p.x>W)p.vx*=-1; if(p.y<0||p.y>H)p.vy*=-1;}
+        for(var b=a+1;b<pts.length;b++){
+          var q=pts[b],dx=p.x-q.x,dy=p.y-q.y,d=dx*dx+dy*dy;
+          if(d<15000){ctx.strokeStyle='rgba(91,140,255,'+(0.16*(1-d/15000))+')';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();}
+        }
+        ctx.fillStyle= a%7===0 ? 'rgba(60,207,190,.7)' : 'rgba(91,140,255,.55)';
+        ctx.beginPath();ctx.arc(p.x,p.y,a%7===0?2.2:1.5,0,6.283);ctx.fill();
+      }
+      if(!reduce) requestAnimationFrame(draw);
+    }
+    size(); draw();
+    var t; window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(function(){size(); if(reduce)draw();},150)});
+  }
+
+  /* reveal + counters */
+  var counted=false;
+  function countUp(){
+    if(counted||reduce)return; counted=true;
+    document.querySelectorAll('.count').forEach(function(n){
+      var to=+n.dataset.to, start=performance.now(), dur=1200;
+      (function step(now){
+        var k=Math.min(1,(now-start)/dur), e=1-Math.pow(1-k,3), v=Math.round(to*e);
+        n.textContent = to>=1000 ? v.toLocaleString('en-US') : v;
+        if(k<1) requestAnimationFrame(step);
+      })(start);
+    });
+  }
+  var items=[].slice.call(document.querySelectorAll('.reveal'));
+  if('IntersectionObserver' in window && !reduce){
+    var vh=window.innerHeight||800;
+    items.forEach(function(it){ if(it.getBoundingClientRect().top>vh*0.92) it.classList.add('pre'); });
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.remove('pre'); if(e.target.classList.contains('metrics')) countUp(); io.unobserve(e.target);} });
+    },{threshold:.12, rootMargin:'0px 0px -40px 0px'});
+    items.forEach(function(it){io.observe(it)});
+  }
+
+  /* copy email */
+  var btn=document.getElementById('copyEmail'), lab=document.getElementById('emailLabel'), addr=document.getElementById('emailAddr');
+  btn.addEventListener('click',function(){
+    function fallback(){var r=document.createRange();r.selectNodeContents(addr);var s=getSelection();s.removeAllRanges();s.addRange(r);lab.textContent='Selected · press Ctrl+C';}
+    try{ navigator.clipboard.writeText(addr.textContent).then(function(){lab.textContent='Copied to clipboard';setTimeout(function(){lab.textContent='Email · click to copy'},2000)},fallback);}catch(e){fallback();}
+  });
+})();
+</script>
+
+</body></html>
